@@ -14,14 +14,12 @@
             <h2 class="fs-4">{{ aduan.content }}</h2>
             <table class="table table-hover mt-5">
               <tbody>
+                <div class="col-12 col-md-6 mb-3 c-pointer" v-for="aduan in aduans" :key="aduan.id" @click="clickOnAduan(aduan.id)"></div>
                 <tr
                   v-if="roleId != 3"
                   class="c-pointer"
                   @click="
-                    $router.push({
-                      name: 'detailpengadu',
-                      params: { id: aduan.authorId },
-                    })
+                   clickOnPengadu(aduan.authorId)
                   "
                 >
                   <th class="w-25">Dihantar Oleh</th>
@@ -124,7 +122,7 @@ export default {
   },
   async mounted() {
     const roleId = localStorage.getItem("roleId");
-    const aduanId = this.$route.params.id;
+    const aduanId = this.$route.params.aduanId;
 
     if (roleId) this.roleId = parseInt(roleId);
 
@@ -156,7 +154,7 @@ export default {
     },
 
     async updateStatus(status) {
-      const aduanId = this.$route.params.id;
+      const aduanId = this.$route.params.aduanId;
 
       try {
         let response;
@@ -221,6 +219,9 @@ export default {
           text: "Failed to update aduan status. Please try again.",
         });
       }
+    },
+    clickOnPengadu(id) {
+      this.$router.push({ name: "detailpengadu", params: { id } });
     },
   },
 };

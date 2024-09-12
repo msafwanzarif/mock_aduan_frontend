@@ -78,7 +78,7 @@ const router = createRouter({
     //   component: Copy
     // },
     {
-      path: '/detailaduan/:id',
+      path: '/detailaduan/:aduanId',
       name: 'detailaduan',
       component: DetailAduan,
       props: true

@@ -15,7 +15,7 @@
             :key="aduan.id"
             class="col-12 col-md-6 mb-3 c-pointer"
             @click="
-              $router.push({ name: 'detailaduan', params: { id: aduan.id } })
+              $router.push({ name: 'detailaduan', params: { aduanId: aduan.id } })
             "
           >
             <div class="card h-100">
