@@ -27,8 +27,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item,index) in senaraiPengguna" class="c-pointer" @click="$router.push({name:'detailpengadu'})">
-              <th scope="row">{{ index + 1 }}</th>
+            <tr v-for="(item,index) in senaraiPengguna" class="c-pointer" @click="$router.push({name:'detailpengadu',params:{id:item.id}})">
+              <th scope="row">{{ (currentPage - 1) * 4 + (index + 1) }}</th>
               <td>{{ item.name }}</td>
               <td>{{ item.id_no }}</td>
               <td>{{ item.email }}</td>

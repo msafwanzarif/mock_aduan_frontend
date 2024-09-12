@@ -6,7 +6,7 @@
         <div class="card w-100 mt-3">
           <div class="card-body">
             <h2>Profil</h2>
-            <h2 class="fs-1 fw-bold"> Alif</h2>
+            <h2 class="fs-1 fw-bold"> Alif {{ $route.params.id }}</h2>
             <h2 class="fs-4"> 931215145966</h2>
             <h2 class="fs-4"> alif@gmail.com</h2>
           </div>
@@ -70,4 +70,6 @@
   </div>
 </template>
 
-<script></script>
+<script>
+
+</script>

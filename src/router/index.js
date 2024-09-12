@@ -28,7 +28,7 @@ const router = createRouter({
       component: Translation
     },
     {
-      path: '/detailpengadu',
+      path: '/detailpengadu/:id',
       name: 'detailpengadu',
       component: DetailPengadu
     },

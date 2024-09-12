@@ -3,7 +3,7 @@
     <div class="d-flex flex-wrap align-item-center">
       <div class="card w-75">
         <div class="card-body">
-          <h1>Selamat Datang!</h1>
+          <h1>Selamat Datang! Mari Mulakan</h1>
           <h2 class="fw-bold m-0"> {{ nama }}</h2>
           <span> {{ roleLabel[roleId] }}</span>
         </div>
