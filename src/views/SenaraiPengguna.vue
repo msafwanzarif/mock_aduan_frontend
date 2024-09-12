@@ -96,15 +96,17 @@
               </tr>
               <tr>
                 <th class="w-25">Aduan Diuruskan</th>
-                <td>0</td> 
+                <!-- <td>{{ detailPegawai._count.aduan }}</td>  -->
+                <!-- <td v-if="detailPegawai">{{ detailPegawai._count.aduan || 0 }}</td> -->
+                 <td>{{ detailPegawai.aduanCount }}</td>
                 <!-- hold dulu -->
               </tr>
             </tbody>
         </table>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger">Gantung</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-danger" v-if="(detailPegawai.status !== 3)" @click="gantungPegawai(detailPegawai.id)">Gantung</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="getAllPegawai()">Tutup</button>
         </div>
       </div>
     </div>
@@ -122,7 +124,7 @@ export default {
       totalPages: 1,
       pageSize: 4,
       pegawais: [],
-      detailPegawai: []
+      detailPegawai: [],
     }
   },
   mounted() {
@@ -166,6 +168,21 @@ export default {
         console.log(e)
         alert(e?.message)
       }) 
+    },
+
+    gantungPegawai(id) {
+      axios.request({
+        method: "PUT",
+        url: `http://localhost:3000/api/pegawai/gantung/${id}`,
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      }).then((res) => {
+        if (res.status == 200) {
+          this.getDetailPegawai(id)
+        }
+      }).catch((e) => {
+        console.log(e)
+        alert(e?.message)
+      })
     },
 
     changePage(pageNumber) {
