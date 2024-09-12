@@ -14,7 +14,7 @@
         <hr>
         <h2>Aduan Yang Dihantar : {{ tAduan }}</h2>
         <div class="row">
-          <div class="col-12 col-md-6 mb-3 c-pointer" v-for="aduan in aduans" @click="clickOnAduan(aduan.id)">
+          <div class="col-12 col-md-6 mb-3 c-pointer" v-for="aduan in aduans" :key="aduan.id" @click="clickOnAduan(aduan.id)">
             <div class="card h-100">
               <div class="card-body">
                 <div class="d-flex flex-column justify-content-between h-100">
