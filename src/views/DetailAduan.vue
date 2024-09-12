@@ -14,7 +14,6 @@
             <h2 class="fs-4">{{ aduan.content }}</h2>
             <table class="table table-hover mt-5">
               <tbody>
-                <div class="col-12 col-md-6 mb-3 c-pointer" v-for="aduan in aduans" :key="aduan.id" @click="clickOnAduan(aduan.id)"></div>
                 <tr
                   v-if="roleId != 3"
                   class="c-pointer"
@@ -31,7 +30,7 @@
                   <th class="w-25">Dihantar Pada</th>
                   <td>{{ formatDate(aduan.created_at) }}</td>
                 </tr>
-                <tr @click="status = (status % 4) + 1">
+                <tr>
                   <th class="w-25">Status</th>
                   <td v-if="status == 1">
                     <span class="badge rounded-pill bg-secondary">Terima</span>
