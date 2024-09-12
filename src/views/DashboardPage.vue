@@ -16,7 +16,7 @@
             data-bs-target="#profilModal"
           >
             Profil
-          </button>
+           Anda</button>
           <button
             class="btn btn-outline-dark w-100 mb-2"
             data-bs-toggle="modal"
