@@ -15,14 +15,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="c-pointer" data-bs-toggle="modal" data-bs-target="#userModal">
-              <th scope="row">1</th>
-              <td>Safwan</td>
-              <td>Admin</td>
-              <td>safwan@aduan.gov</td>
-              <td><span class="badge rounded-pill bg-success">Aktif</span></td>
+            <tr class="c-pointer" data-bs-toggle="modal" data-bs-target="#userModal" v-for="(pegawai, index) in pegawais">
+              <th scope="row">{{ (currentPage - 1) * pageSize + index + 1 }}</th>
+              <td>{{ pegawai.name }}</td>
+              <td>{{ getRoleId(pegawai.roleId) }}</td>
+              <td>{{ pegawai.email }}</td>
+              <td><span class="badge rounded-pill" :class="getBadgeStatus(pegawai.status)">{{ getStatus(pegawai.status) }}</span></td>
             </tr>
-            <tr>
+            <!-- <tr>
               <th scope="row">2</th>
               <td>Zarif</td>
               <td>Pegawai</td>
@@ -42,21 +42,21 @@
               <td>Pegawai</td>
               <td>aiman@aduan.gov</td>
               <td><span class="badge rounded-pill bg-danger">Digantung</span></td>
-            </tr>
+            </tr> -->
 
           </tbody>
         </table>
         <ul class="pagination float-end">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
+          <li class="page-item" :class="{ disabled: currentPage === 1 }">
+            <a class="page-link" href="#" aria-label="Previous" @click="changePage(currentPage - 1)">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
+          <li class="page-item" v-for="page in totalPages" :key="page" :class="{ active: page === currentPage }">
+            <a class="page-link" href="#" @click="changePage(page)">{{ page }}</a>
+          </li>
+          <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+            <a class="page-link" href="#" aria-label="Next" @click="changePage(currentPage + 1)">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
@@ -110,4 +110,78 @@
   </div>
 </template>
 
-<script></script>
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      roleId: 1,
+      currentPage: 1,
+      totalPages: 1,
+      pageSize: 4,
+      pegawais: []
+    }
+  },
+  mounted() {
+    let roleId = localStorage.getItem("roleId");
+    if (roleId == 1) {
+      this.getAllPegawai()
+    }
+  },
+
+  methods: {
+    getAllPegawai() {
+      axios.request({
+        methods: "GET",
+        url: "http://localhost:3000/api/pegawai/list",
+        params: { page: this.currentPage, pageSize: this.pageSize },
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      }).then((response) => {
+        if (response.status == 200) {
+          this.pegawais = response.data.pegawailist
+          this.currentPage = response.data.currentPage
+          this.totalPages = response.data.totalPages
+        }
+      }).catch((e) => {
+        console.log(e)
+        // console.log("Token: " , localStorage.getItem("token")) //semestara
+        // console.log("roleId:" , localStorage.getItem("roleId")) //sementara
+        alert(e?.message)
+      })
+    },
+
+    changePage(pageNumber) {
+      if (pageNumber < 1 || pageNumber > this.maxPages) return
+      this.currentPage = pageNumber
+      this.getAllPegawai()
+    },
+
+    getStatus(status) {
+      switch (status) {
+        case 1: return 'Aktif'
+        case 2: return 'Tidak Aktif'
+        case 3: return 'Digantung'
+        default: 'null'
+      }
+    },
+
+    getBadgeStatus(status) {
+      switch (status) {
+        case 1: return 'bg-success'
+        case 2: return 'bg-warning'
+        case 3: return 'bg-danger'
+        default: 'null'
+      }
+    },
+
+    getRoleId(roleId) {
+      switch (roleId) {
+        case 1: return 'Admin'
+        case 2: return 'Pegawai'
+      }
+    }
+
+  }
+}
+</script>

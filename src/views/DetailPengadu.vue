@@ -6,32 +6,32 @@
         <div class="card w-100 mt-3">
           <div class="card-body">
             <h2>Profil</h2>
-            <h2 class="fs-1 fw-bold"> Alif {{ $route.params.id }}</h2>
-            <h2 class="fs-4"> 931215145966</h2>
-            <h2 class="fs-4"> alif@gmail.com</h2>
+            <h2 class="fs-1 fw-bold">{{ profile.name }}</h2>
+            <h2 class="fs-4">{{ profile.id_no }}</h2>
+            <h2 class="fs-4">{{ profile.email }}</h2>
           </div>
         </div>
         <hr>
-        <h2>Aduan Yang Dihantar : 3</h2>
+        <h2>Aduan Yang Dihantar : {{ tAduan }}</h2>
         <div class="row">
-          <div class="col-12 col-md-6 mb-3">
+          <div class="col-12 col-md-6 mb-3 c-pointer" v-for="aduan in aduans" :key="aduan.id" @click="clickOnAduan(aduan.id)">
             <div class="card h-100">
               <div class="card-body">
                 <div class="d-flex flex-column justify-content-between h-100">
                   <div>
-                    <h1 class="fs-3 fw-bold">Aduan Paling Latest</h1>
-                    <h2 class="fs-6 fst-italic">Hmm takda apa sangat nak cakap actually
+                    <h1 class="fs-3 fw-bold">{{ aduan.title }}</h1>
+                    <h2 class="fs-6 fst-italic">{{ aduan.content }}
                     </h2>
                   </div>
                   <div class="w-100 mt-4">
-                    <span class="badge rounded-pill bg-secondary">Terima</span>
-                    <div class="float-end"><span class="fs-6">21/6/2024 9:00AM</span></div>
+                    <span class="badge rounded-pill" :class="getBadgeClass(aduan.status)">{{ getStatus(aduan.status) }}</span>
+                    <div class="float-end"><span class="fs-6">{{ dateFormat(aduan.created_at) }}</span></div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-12 col-md-6 mb-3 c-pointer" @click="$router.push({name:'detailaduan'})">
+          <!-- <div class="col-12 col-md-6 mb-3 c-pointer" @click="$router.push({name:'detailaduan'})">
             <div class="card h-100">
               <div class="card-body">
                 <div class="d-flex flex-column justify-content-between h-100">
@@ -47,8 +47,8 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-12 col-md-6 mb-3">
+          </div> -->
+          <!-- <div class="col-12 col-md-6 mb-3">
             <div class="card h-100">
               <div class="card-body">
                 <div class="d-flex flex-column justify-content-between h-100">
@@ -63,7 +63,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -71,5 +71,79 @@
 </template>
 
 <script>
+import axios from 'axios';
 
+export default {
+  data() {
+    return {
+      profile: [],
+      aduans: [],
+      tAduan: 0,
+    }
+  },
+
+  mounted() {
+    let id = this.$route.params.id;
+    // console.log(id)
+    this.getProfilenAduan(id)
+  },
+
+  methods: {
+    getProfilenAduan(id) {
+      axios.request({
+        method: 'GET',
+        url: `http://localhost:3000/api/pengguna/${id}`,
+        // params: {id: id},
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+      }).then((response) => {
+        this.profile = response.data.profile
+        this.aduans = response.data.aduan.results
+        this.tAduan = response.data.aduan.total
+      }).catch((e) => {
+        console.log(e)
+        alert(e?.message)
+      })
+    },
+
+    getStatus(status) {
+      switch (status) {
+        case 1: return 'Terima'
+        case 2: return 'Dalam Siastan'
+        case 3: return 'Selesai'
+        case 4: return 'Ditolak'
+        default: return 'null'
+      }
+    },
+    getBadgeClass(status) {
+      switch (status) {
+        case 1:
+          return 'bg-secondary';  // For status 1 (Terima)
+        case 2:
+          return 'bg-primary';    // For status 2 (Dalam Siasatan)
+        case 3:
+          return 'bg-success';
+        case 4:
+          return 'bg-danger';  // For status 3 (Selesai)
+        default:
+          return 'bg-dark';       // Default class for unknown status
+      }
+    },
+
+    dateFormat(dateTime) {
+      const date = new Date(dateTime * 1000)
+      return date.toLocaleString('en-GB', {
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+      })
+    },
+
+    clickOnAduan(aduanId) {
+      this.$router.push({ name: 'detailaduan', params: { aduanId } })
+    }
+  }
+}
 </script>
