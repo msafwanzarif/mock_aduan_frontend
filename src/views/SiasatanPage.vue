@@ -113,7 +113,7 @@ export default {
           },
         });
 
-        // Handle the response
+        // Handle response
         this.aduanList = response.data.aduanList;
         this.totalPages = response.data.totalPages;
       } catch (error) {

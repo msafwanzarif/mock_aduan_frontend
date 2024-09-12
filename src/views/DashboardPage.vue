@@ -393,11 +393,10 @@ export default {
           return;
         }
 
-        // Prepare the payload based on the role
         const payload = {
           name: this.tempNama,
           email: this.tempEmail,
-          ic_no: this.roleId == 3 ? this.tempIcNo : undefined, // Include IC No only for roleId 3
+          ic_no: this.roleId == 3 ? this.tempIcNo : undefined, 
         };
 
         // Send the update request
@@ -472,7 +471,7 @@ export default {
             title: "Success",
             text: "Password successfully updated.",
           });
-          // Clear the form fields and close the modal
+          // Clear the form fields
           this.oldPassword = "";
           this.newPassword = "";
           this.confirmNewPassword = "";

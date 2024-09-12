@@ -17,9 +17,7 @@
                 <tr
                   v-if="roleId != 3"
                   class="c-pointer"
-                  @click="
-                   clickOnPengadu(aduan.authorId)
-                  "
+                  @click="clickOnPengadu(aduan.authorId)"
                 >
                   <th class="w-25">Dihantar Oleh</th>
                   <td>
@@ -126,13 +124,26 @@ export default {
     if (roleId) this.roleId = parseInt(roleId);
 
     try {
-      const response = await axios.request({
-        method: "get",
-        url: `http://localhost:3000/api/aduan/aduanDetail-Pegawai/${aduanId}`,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      let response;
+      if (this.roleId === 3) {
+        // Pengadu role
+        response = await axios.request({
+          method: "get",
+          url: `http://localhost:3000/api/aduan/my/${aduanId}`,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+      } else {
+        // Pegawai/Admin role 
+        response = await axios.request({
+          method: "get",
+          url: `http://localhost:3000/api/aduan/aduanDetail-Pegawai/${aduanId}`,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+      }
       this.aduan = response.data;
       this.status = this.aduan.status;
     } catch (error) {
@@ -158,46 +169,54 @@ export default {
       try {
         let response;
 
-        if (status === 4) {
-          // Call the tolakAduan API
+        if (this.roleId === 3 && status === 4) {
+          // Call the batalAduan API for pengadu role
           response = await axios.request({
             method: "put",
-            url: `http://localhost:3000/api/aduan/pegawai/tolak/${aduanId}`,
+            url: `http://localhost:3000/api/aduan/cancel/${aduanId}`,
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           });
-        } else if (status === 2) {
-          // Call the terimaAduan API (assuming similar to this in your API setup)
-          response = await axios.request({
-            method: "put",
-            url: `http://localhost:3000/api/aduan/pegawai/terima/${aduanId}`,
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          });
-        } else if (status === 3) {
-          // Validate if 'hasilSiasatan' is filled in before completing the aduan
-          if (!this.hasilSiasatan) {
-            Swal.fire({
-              icon: "warning",
-              title: "Form Incomplete",
-              text: "Please fill in the Hasil Siasatan before completing the aduan.",
+        } else if (this.roleId === 2) {
+          // Call pegawai API based on status
+          if (status === 4) {
+            response = await axios.request({
+              method: "put",
+              url: `http://localhost:3000/api/aduan/pegawai/tolak/${aduanId}`,
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
             });
-            return;
-          }
+          } else if (status === 2) {
+            response = await axios.request({
+              method: "put",
+              url: `http://localhost:3000/api/aduan/pegawai/terima/${aduanId}`,
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            });
+          } else if (status === 3) {
+            if (!this.hasilSiasatan) {
+              Swal.fire({
+                icon: "warning",
+                title: "Form Incomplete",
+                text: "Please fill in the Hasil Siasatan before completing the aduan.",
+              });
+              return;
+            }
 
-          // Call the selesaiAduan API with the hasilSiasatan
-          response = await axios.request({
-            method: "put",
-            url: `http://localhost:3000/api/aduan/pegawai/selesai/${aduanId}`,
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            data: {
-              hasil: this.hasilSiasatan,
-            },
-          });
+            response = await axios.request({
+              method: "put",
+              url: `http://localhost:3000/api/aduan/pegawai/selesai/${aduanId}`,
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              data: {
+                hasil: this.hasilSiasatan,
+              },
+            });
+          }
         }
 
         console.log(response.data);
@@ -211,7 +230,6 @@ export default {
       } catch (error) {
         console.error("Failed to update aduan status:", error);
 
-        // Handle the error with SweetAlert error
         Swal.fire({
           icon: "error",
           title: "Error",
