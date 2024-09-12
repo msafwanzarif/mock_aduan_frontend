@@ -78,9 +78,10 @@ const router = createRouter({
     //   component: Copy
     // },
     {
-      path: '/detailaduan',
+      path: '/detailaduan/:id',
       name: 'detailaduan',
-      component: DetailAduan
+      component: DetailAduan,
+      props: true
     },
     {
       path: '/dashboardpage',
