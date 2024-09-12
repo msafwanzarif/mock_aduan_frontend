@@ -15,7 +15,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="c-pointer" data-bs-toggle="modal" data-bs-target="#userModal" v-for="(pegawai, index) in pegawais">
+            <tr class="c-pointer" data-bs-toggle="modal" data-bs-target="#userModal" v-for="(pegawai, index) in pegawais" :key="pegawai.id" @click="getDetailPegawai(pegawai.id)">
               <th scope="row">{{ (currentPage - 1) * pageSize + index + 1 }}</th>
               <td>{{ pegawai.name }}</td>
               <td>{{ getRoleId(pegawai.roleId) }}</td>
@@ -76,27 +76,28 @@
             <tbody>
               <tr>
                 <th class="w-25">Nama</th>
-                <td>Safwan Zarif</td>
+                <td>{{ detailPegawai.name }}</td>
               </tr>
               <tr>
                 <th class="w-25">Role</th>
-                <td>Pegawai</td>
+                <td>{{ getRoleId(detailPegawai.roleId) }}</td>
               </tr>
               <tr>
                 <th class="w-25">Email</th>
-                <td>safwan@aduan.gov</td>
+                <td>{{ detailPegawai.email }}</td>
               </tr>
               <tr>
                 <th class="w-25">Status</th>
-                <td><span class="badge rounded-pill bg-success">Aktif</span></td>
+                <td><span class="badge rounded-pill" :class="getBadgeStatus(detailPegawai.status)">{{ getStatus(detailPegawai.status) }}</span></td>
               </tr>
               <tr>
                 <th class="w-25">Login Terakhir</th>
-                <td>20/6/2024 12:00 PM</td>
+                <td>{{ dateFormat(detailPegawai.last_login) }}</td>
               </tr>
               <tr>
                 <th class="w-25">Aduan Diuruskan</th>
-                <td>3</td>
+                <td>0</td> 
+                <!-- hold dulu -->
               </tr>
             </tbody>
         </table>
@@ -120,7 +121,8 @@ export default {
       currentPage: 1,
       totalPages: 1,
       pageSize: 4,
-      pegawais: []
+      pegawais: [],
+      detailPegawai: []
     }
   },
   mounted() {
@@ -149,6 +151,21 @@ export default {
         // console.log("roleId:" , localStorage.getItem("roleId")) //sementara
         alert(e?.message)
       })
+    },
+
+    async getDetailPegawai(id) {
+      axios.request({
+        method: "GET",
+        url: `http://localhost:3000/api/pegawai/detail/${id}`,
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      }).then((response) => {
+        if (response.status == 200) {
+          this.detailPegawai = response.data
+        }
+      }).catch((e) => {
+        console.log(e)
+        alert(e?.message)
+      }) 
     },
 
     changePage(pageNumber) {
@@ -180,7 +197,19 @@ export default {
         case 1: return 'Admin'
         case 2: return 'Pegawai'
       }
-    }
+    },
+
+    dateFormat(dateTime) {
+      const date = new Date(dateTime * 1000)
+      return date.toLocaleString('en-GB', {
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+      })
+    },
 
   }
 }
