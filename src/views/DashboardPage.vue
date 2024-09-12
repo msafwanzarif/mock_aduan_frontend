@@ -3,7 +3,7 @@
     <div class="d-flex flex-wrap align-item-center">
       <div class="card w-75">
         <div class="card-body">
-          <h1>Selamat Datang! Mari Mulakan</h1>
+          <h1>Selamat Datang!</h1>
           <h2 class="fw-bold m-0"> {{ nama }}</h2>
           <span> {{ roleLabel[roleId] }}</span>
         </div>
@@ -11,7 +11,7 @@
       <div class="card w-25">
         <div class="card-body">
           <button class="btn btn-outline-dark w-100 mb-2" data-bs-toggle="modal"
-            data-bs-target="#profilModal">Profil</button>
+            data-bs-target="#profilModal">Profil Anda</button>
           <button class="btn btn-outline-dark w-100 mb-2" data-bs-toggle="modal" data-bs-target="#passwordModal">Tukar
             Password</button>
           <button class="btn btn-outline-danger w-100" @click="$router.push({ name: 'home' })">Log Keluar</button>
