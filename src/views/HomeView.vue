@@ -3,7 +3,7 @@
     <div class="h-100 d-flex flex-column align-items-center justify-content-center">
       <div class="card w-100 w-md-25">
         <div class="card-body">
-          <h1 class="m-0 mb-3">Login</h1>
+          <h1 class="m-0 mb-3">Sila Login</h1>
           <label class="form-label">Username</label>
           <input v-model="username" type="text" class="form-control">
           <label class="form-label">Password</label>
