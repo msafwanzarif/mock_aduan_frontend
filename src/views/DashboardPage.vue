@@ -327,9 +327,9 @@ export default {
   mounted() {
     this.tempNama = this.nama;
     let roleId = localStorage.getItem("roleId");
-    
+    this.getMyProfile()
     if (roleId == 3) {
-      this.getMyProfile()
+
       this.getMyStat()
       this.getAllMyAduan()
     }
@@ -362,7 +362,7 @@ export default {
         });
     },
     toggleStatus(status) {
-      this.activeStatus === status  ? this.activeStatus =  0 : this.activeStatus = status
+      this.activeStatus === status ? this.activeStatus = 0 : this.activeStatus = status
       this.getAllMyAduan()
     },
     getMyProfile() {
@@ -373,7 +373,7 @@ export default {
       }).then((response) => {
         if (response.status == 200) {
           this.email = response.data.email
-          this.nama= response.data.name
+          this.nama = response.data.name
           this.id_no = response.data.id_no
         }
       }).catch((e) => {
@@ -496,7 +496,7 @@ export default {
       }
     },
     clickOnAduan(aduanId) {
-      this.$router.push({ name: "detailaduan", params: {aduanId} });
+      this.$router.push({ name: "detailaduan", params: { aduanId } });
     },
 
     getAllMyAduan() {
