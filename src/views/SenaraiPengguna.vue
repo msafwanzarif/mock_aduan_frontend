@@ -149,8 +149,6 @@ export default {
         }
       }).catch((e) => {
         console.log(e)
-        // console.log("Token: " , localStorage.getItem("token")) //semestara
-        // console.log("roleId:" , localStorage.getItem("roleId")) //sementara
         alert(e?.message)
       })
     },
