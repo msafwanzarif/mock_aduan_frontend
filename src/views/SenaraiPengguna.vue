@@ -93,6 +93,7 @@
 
 <script>
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default {
   data() {
@@ -154,6 +155,11 @@ export default {
       }).then((res) => {
         if (res.status == 200) {
           this.getDetailPegawai(id)
+          Swal.fire({
+            icon: "success",
+            title: "Berjaya digantung",
+            text: "HAHAHAHA! padan muke kene gantung"
+          })
         }
       }).catch((e) => {
         console.log(e)

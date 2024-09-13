@@ -82,13 +82,12 @@ export default {
         }).catch((e) => {
           console.log(e)
           // alert(e?.message)
+          const eMessage = e.response?.data?.message || e.message
+          const displayMessage = Array.isArray(eMessage) ? eMessage.join(',') : eMessage
           Swal.fire({
             icon: 'warning',
             title: 'Tidak Berjaya',
-            text: `Sila masukkan butiran dengan betul (${e})`
-          }).then(() => {
-            this.nama = '',
-              this.email = ''
+            text: displayMessage
           })
 
           console.log(e.data)
