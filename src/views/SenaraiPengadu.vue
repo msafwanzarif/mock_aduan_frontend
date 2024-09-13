@@ -21,7 +21,7 @@
         <table class="table table-hover table-striped mt-5">
           <thead>
             <tr>
-              <th scope="col">#</th>
+              <th scope="col">No.</th>
               <th scope="col">Nama</th>
               <th scope="col">IC No</th>
               <th scope="col">Email</th>
