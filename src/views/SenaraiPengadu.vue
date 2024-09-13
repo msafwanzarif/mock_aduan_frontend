@@ -4,14 +4,16 @@
       <div class="card-body">
         <h1><span class="c-pointer" @click="$router.back()">Home ></span> Senarai Pengguna</h1>
         <ul class="pagination float-end">
-          <li class="page-item" :class="{'disabled':currentPage == 1}" >
-            <a class="page-link" @click="changePage(currentPage - 1)" aria-label="Previous">
+          <li class="page-item" :class="{ disabled: currentPage === 1 }">
+            <a class="page-link" href="#" aria-label="Previous" @click="changePage(currentPage - 1)">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li v-for="page in maxPage" class="page-item c-pointer" :class="{'fw-bold':currentPage == page}"><a class="page-link" @click="changePage(page)">{{ page }}</a></li>
-          <li class="page-item" :class="{disabled:currentPage == maxPage}">
-            <a class="page-link" @click="changePage(currentPage + 1)" aria-label="Next">
+          <li class="page-item" v-for="page in totalPages" :key="page" :class="{ active: page === currentPage }">
+            <a class="page-link" href="#" @click="changePage(page)">{{ page }}</a>
+          </li>
+          <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+            <a class="page-link" href="#" aria-label="Next" @click="changePage(currentPage + 1)">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
@@ -27,7 +29,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item,index) in penggunas" class="c-pointer" @click="$router.push({name:'detailpengadu',params:{id:item.id}})">
+            <tr v-for="(item,index) in penggunas" :key="item.id" class="c-pointer" @click="$router.push({name:'detailpengadu',params:{id:item.id}})">
               <th scope="row">{{ (currentPage - 1) * 4 + (index + 1) }}</th>
               <td>{{ item.name }}</td>
               <td>{{ item.id_no }}</td>
@@ -37,20 +39,20 @@
           </tbody>
         </table>
         <ul class="pagination float-end">
-            <li class="page-item" :class="{ disabled: currentPage === 1 }">
-              <a class="page-link" href="#" aria-label="Previous" @click="changePage(currentPage - 1)">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item" v-for="page in maxPages" :key="page" :class="{ active: page === currentPage }">
-              <a class="page-link" href="#" @click="changePage(page)">{{ page }}</a>
-            </li>
-            <li class="page-item" :class="{ disabled: currentPage === maxPages }">
-              <a class="page-link" href="#" aria-label="Next" @click="changePage(currentPage + 1)">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
+          <li class="page-item" :class="{ disabled: currentPage === 1 }">
+            <a class="page-link" href="#" aria-label="Previous" @click="changePage(currentPage - 1)">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item" v-for="page in totalPages" :key="page" :class="{ active: page === currentPage }">
+            <a class="page-link" href="#" @click="changePage(page)">{{ page }}</a>
+          </li>
+          <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+            <a class="page-link" href="#" aria-label="Next" @click="changePage(currentPage + 1)">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -64,7 +66,7 @@ export default {
     return {
       penggunas:[],
       currentPage: 1,
-      maxPages:1,
+      totalPages:1,
       roleId:1,
       pageSize:4
     }
@@ -87,7 +89,7 @@ export default {
       }).then((response) => {
         this.penggunas = response.data.result;
         this.currentPage = response.data.currentPage
-        this.maxPages = response.data.maxPage
+        this.totalPages = response.data.maxPage
       }).catch((e) => {
         console.log(e)
         alert(e?.message)
@@ -95,7 +97,7 @@ export default {
     },
 
     changePage(pageNumber) {
-      if (pageNumber < 1 || pageNumber > this.maxPages) return
+      if (pageNumber < 1 || pageNumber > this.totalPages) return
       this.currentPage = pageNumber
       this.getAllPengguna()
     },
