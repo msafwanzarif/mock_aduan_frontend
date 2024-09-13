@@ -4,7 +4,7 @@
       <div class="card w-75">
         <div class="card-body">
           <h1>Selamat Datang!</h1>
-          <h2 class="fw-bold m-0">{{ nama }}</h2>
+          <h2 class="fw-bold m-0">{{ tempNama }}</h2>
           <span> {{ roleLabel[roleId] }}</span>
         </div>
       </div>
@@ -381,7 +381,7 @@
             type="button"
             class="btn btn-secondary"
             data-bs-dismiss="modal"
-            @click="tempNama = nama"
+            @click="getMyProfile"
           >
             Batal
           </button>
@@ -475,8 +475,25 @@ export default {
     },
   },
   methods: {
+    async cancelProfileUpdate() {
+    try {
+      // Fetch the latest profile data
+      await this.getMyProfile();
+
+      // Close the modal
+      const myModalEl = document.querySelector("#profilModal");
+      const modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
+      modal.hide();
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to fetch profile data.",
+      });
+    }
+  },
     validateNumericInput(event) {
-      // Keep leading zeros but remove any non-numeric characters
       const value = event.target.value;
       const numericValue = value.replace(/[^0-9]/g, "");
       this.tempIcNo = numericValue;

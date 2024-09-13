@@ -118,6 +118,10 @@ export default {
     };
   },
   async mounted() {
+    await this.initializeData();
+  },
+  methods: {
+    async initializeData() {
     const roleId = localStorage.getItem("roleId");
     const aduanId = this.$route.params.aduanId;
 
@@ -126,7 +130,6 @@ export default {
     try {
       let response;
       if (this.roleId === 3) {
-        // Pengadu role
         response = await axios.request({
           method: "get",
           url: `http://localhost:3000/api/aduan/my/${aduanId}`,
@@ -135,7 +138,6 @@ export default {
           },
         });
       } else {
-        // Pegawai/Admin role 
         response = await axios.request({
           method: "get",
           url: `http://localhost:3000/api/aduan/aduanDetail-Pegawai/${aduanId}`,
@@ -150,7 +152,6 @@ export default {
       console.error("Failed to fetch aduan details:", error);
     }
   },
-  methods: {
     formatDate(timestamp) {
       const options = {
         year: "numeric",
@@ -222,6 +223,8 @@ export default {
         console.log(response.data);
 
         this.status = status;
+        await this.initializeData();
+        
         Swal.fire({
           icon: "success",
           title: "Success",
