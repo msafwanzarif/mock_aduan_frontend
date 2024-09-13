@@ -22,28 +22,6 @@
               <td>{{ pegawai.email }}</td>
               <td><span class="badge rounded-pill" :class="getBadgeStatus(pegawai.status)">{{ getStatus(pegawai.status) }}</span></td>
             </tr>
-            <!-- <tr>
-              <th scope="row">2</th>
-              <td>Zarif</td>
-              <td>Pegawai</td>
-              <td>zarif@aduan.gov</td>
-              <td><span class="badge rounded-pill bg-success">Aktif</span></td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Aiman</td>
-              <td>Pegawai</td>
-              <td>aiman@aduan.gov</td>
-              <td><span class="badge rounded-pill bg-warning">Tidak Aktif</span></td>
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td>Vader</td>
-              <td>Pegawai</td>
-              <td>aiman@aduan.gov</td>
-              <td><span class="badge rounded-pill bg-danger">Digantung</span></td>
-            </tr> -->
-
           </tbody>
         </table>
         <ul class="pagination float-end">
