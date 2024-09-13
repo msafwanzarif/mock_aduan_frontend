@@ -58,7 +58,6 @@ export default {
             // console.log('role:' + this.selectedRole)
         })
       } else {
-        this.checkData()
         await axios.request({
           method: 'POST',
           url: 'http://localhost:3000/api/pegawai',
@@ -93,16 +92,6 @@ export default {
           console.log(e.data)
         })
       }
-    },
-
-    checkData() {
-      console.log(
-        'Nama: ' + this.nama,
-        'Email: ' + this.email,
-        'Password: ' + this.pwd,
-        'CPwd: ' + this.cpwd,
-        'Role: ' + this.selectedRole
-      )
     },
 
     getRole() {
