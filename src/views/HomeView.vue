@@ -54,8 +54,13 @@ export default {
         }
       })
       .catch(function (error) {
-        console.log(error)
-        alert("Wrong username or password")
+       // Display backend error message
+       if (error.response && error.response.data && error.response.data.message) {
+          alert(`${error.response.data.message}`);
+        } else {
+          // General fallback error
+          alert("Failed to login. Please try again.");
+        }
       })
 
     }

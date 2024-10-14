@@ -10,13 +10,21 @@
             Tambah Aduan
           </h1>
           <label class="form-label mt-3">Tajuk</label>
-          <input type="text" class="form-control" v-model="tajuk" />
+          <input type="text" class="form-control" v-model="tajuk" :maxlength="100"
+          @input="updateTajukLength"/>
+          <p class="text-muted mt-1">
+            {{ tajukLength }} characters out of 100 characters
+          </p>
 
           <label class="form-label mt-3">Butiran</label>
-          <textarea rows="4" class="form-control" v-model="butiran"></textarea>
+          <textarea rows="4" class="form-control" v-model="butiran" :maxlength="1000"
+          @input="updateButiranLength"></textarea>
+          <p class="text-muted mt-1">
+            {{ butiranLength }} characters out of 1000 characters
+          </p>
 
           <div class="mt-4 float-end">
-            <button @click="submitAduan" class="btn btn-primary px-5">
+            <button @click="submitAduan" class="btn btn-primary px-5" :disabled="isDisabled">
               Hantar
             </button>
           </div>
@@ -35,15 +43,37 @@ export default {
     return {
       tajuk: "",
       butiran: "",
+      tajukLength: "",
+      butiranLength: "",
     };
   },
+  computed: {
+    isDisabled(){
+      return this.tajuk.length > 100 || this.butiran.length > 1000;
+    }
+  },
   methods: {
+    updateTajukLength(){
+      this.tajukLength = this.tajuk.length;
+    },
+    updateButiranLength(){
+      this.butiranLength = this.butiran.length
+    },
     async submitAduan() {
       if (!this.tajuk || !this.butiran) {
         Swal.fire({
           icon: "warning",
           title: "Incomplete Form",
           text: "Please fill in all fields before submitting.",
+        });
+        return;
+      }
+
+      if (this.tajuk.length > 100 || this.butiran.length > 1000) {
+        Swal.fire({
+          icon: "warning",
+          title: "Exceeded Character Limit",
+          text: `Tajuk cannot exceed 100 characters and Butiran cannot exceed 1000 characters.`,
         });
         return;
       }
@@ -83,3 +113,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.text-muted {
+  font-size: 0.85rem;
+}
+</style>
