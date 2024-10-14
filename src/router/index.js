@@ -13,6 +13,16 @@ import SelesaiPage from '../views/SelesaiPage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
 import DetailPengadu from '../views/DetailPengadu.vue'
 import DashboardPage from '../views/DashboardPage.vue'
+import ErrorPage from '../views/ErrorPage.vue'
+
+const isAuthenticated = () => {
+  return localStorage.getItem('token') !== null
+}
+
+const hasRestrictedRole = (restrictedRoleIds) => {
+  const userRoleId = localStorage.getItem('roleId')
+  return restrictedRoleIds.includes(userRoleId)
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,7 +40,8 @@ const router = createRouter({
     {
       path: '/detailpengadu/:id',
       name: 'detailpengadu',
-      component: DetailPengadu
+      component: DetailPengadu,
+      meta: ({ requiresAuth: true, restrictedRoleIds: '3'})
     },
     {
       path: '/registerpage',
@@ -45,32 +56,38 @@ const router = createRouter({
     {
       path: '/senaraipengadu',
       name: 'senaraipengadu',
-      component: SenaraiPengadu
+      component: SenaraiPengadu,
+      meta: ({ requiresAuth: true, restrictedRoleIds: '3' })
     },
     {
       path: '/senaraipengguna',
       name: 'senaraipengguna',
-      component: SenaraiPengguna
+      component: SenaraiPengguna,
+      meta: ({ requiresAuth: true, restrictedRoleIds: ['2','3'] })
     },
     {
       path: '/siasatanpage',
       name: 'siasatanpage',
-      component: SiasatanPage
+      component: SiasatanPage,
+      meta: ({ requiresAuth: true })
     },
     {
       path: '/tambahpengguna',
       name: 'tambahpengguna',
-      component: TambahPengguna
+      component: TambahPengguna,
+      meta: ({ requiresAuth: true, restrictedRoleIds: ['2', '3'] })
     },
     {
       path: '/tukarpassword',
       name: 'tukarpassword',
-      component: TukarPassword
+      component: TukarPassword,
+      meta: ({ requiresAuth: true })
     },
     {
       path: '/tambahaduan',
       name: 'tambahaduan',
-      component: TambahAduan
+      component: TambahAduan,
+      meta: ({ requiresAuth: true })
     },
     // {
     //   path: '/copy',
@@ -81,14 +98,38 @@ const router = createRouter({
       path: '/detailaduan/:aduanId',
       name: 'detailaduan',
       component: DetailAduan,
+      meta: ({ requiresAuth: true }),
       props: true
     },
     {
       path: '/dashboardpage',
       name: 'dashboardpage',
-      component: DashboardPage
+      component: DashboardPage,
+      meta: ({ requiresAuth: true })
+    },
+    {
+      path: '/error',
+      name: 'error',
+      component: ErrorPage
     },
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!isAuthenticated()) {
+      next({ name: 'error' });
+    } else {
+      const restrictedRoleIds = to.meta.restrictedRoleIds;
+      if (restrictedRoleIds && hasRestrictedRole(restrictedRoleIds)) {
+        next({ name: 'error' }); 
+      } else {
+        next(); 
+      }
+    }
+  } else {
+    next(); 
+  }
 })
 
 export default router
