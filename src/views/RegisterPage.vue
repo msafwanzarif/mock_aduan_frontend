@@ -29,11 +29,11 @@ import axios from "axios"
 export default {
   data() {
     return {
-      "nama": "Ahmad Idham",
-      "icno": "691214015478",
-      "email": "idham2@tv3.com",
-      "password": "12345@Abcdef",
-      "confirm_password": "12345@Abcdef",
+      "nama": "",
+      "icno": "",
+      "email": "",
+      "password": "",
+      "confirm_password": "",
     }
   },
   methods: {

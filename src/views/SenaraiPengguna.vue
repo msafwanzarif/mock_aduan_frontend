@@ -84,6 +84,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" v-if="(detailPegawai.status !== 3)" @click="gantungPegawai(detailPegawai.id)">Gantung</button>
+          <button type="button" class="btn btn-success" v-if="(detailPegawai.status !== 1)" @click="aktifPegawai(detailPegawai.id)">Aktif</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="getAllPegawai()">Tutup</button>
         </div>
       </div>
@@ -159,6 +160,26 @@ export default {
             icon: "success",
             title: "Berjaya digantung",
             text: "HAHAHAHA! padan muke kene gantung"
+          })
+        }
+      }).catch((e) => {
+        console.log(e)
+        alert(e?.message)
+      })
+    },
+
+    aktifPegawai(id) {
+      axios.request({
+        method: "PUT",
+        url: `http://localhost:3000/api/pegawai/aktif/${id}`,
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      }).then((res) => {
+        if (res.status == 200) {
+          this.getDetailPegawai(id)
+          Swal.fire({
+            icon: "success",
+            title: "Berjaya diaktifkan",
+            text: "HAHAHAHA! jangan buat pasal lagi"
           })
         }
       }).catch((e) => {
