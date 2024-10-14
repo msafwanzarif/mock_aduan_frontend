@@ -13,15 +13,20 @@
         </div>
         <hr>
         <h2>Aduan Yang Dihantar : {{ tAduan }}</h2>
-        <div class="row">
+        <div v-if="loading" class="text-center">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="loading-text">Please Wait</div>
+        </div>
+        <div class="row" v-else>
           <div class="col-12 col-md-6 mb-3 c-pointer" v-for="aduan in aduans" :key="aduan.id" @click="clickOnAduan(aduan.id)">
             <div class="card h-100">
               <div class="card-body">
                 <div class="d-flex flex-column justify-content-between h-100">
                   <div>
                     <h1 class="fs-3 fw-bold">{{ aduan.title }}</h1>
-                    <h2 class="fs-6 fst-italic">{{ aduan.content }}
-                    </h2>
+                    <h2 class="fs-6 fst-italic">{{ aduan.content }}</h2>
                   </div>
                   <div class="w-100 mt-4">
                     <span class="badge rounded-pill" :class="getBadgeClass(aduan.status)">{{ getStatus(aduan.status) }}</span>
@@ -79,6 +84,7 @@ export default {
       profile: [],
       aduans: [],
       tAduan: 0,
+      loading: true,
     }
   },
 
@@ -103,6 +109,9 @@ export default {
         console.log(e)
         alert(e?.message)
       })
+      .finally(() => {
+        this.loading = false; 
+      });
     },
 
     getStatus(status) {
@@ -117,15 +126,15 @@ export default {
     getBadgeClass(status) {
       switch (status) {
         case 1:
-          return 'bg-secondary';  // For status 1 (Terima)
+          return 'bg-secondary'; 
         case 2:
-          return 'bg-primary';    // For status 2 (Dalam Siasatan)
+          return 'bg-primary';    
         case 3:
           return 'bg-success';
         case 4:
-          return 'bg-danger';  // For status 3 (Selesai)
+          return 'bg-danger';  
         default:
-          return 'bg-dark';       // Default class for unknown status
+          return 'bg-dark';       
       }
     },
 
@@ -147,3 +156,9 @@ export default {
   }
 }
 </script>
+<style>
+.spinner-border {
+  width: 10rem;
+  height: 10rem;
+}
+</style>

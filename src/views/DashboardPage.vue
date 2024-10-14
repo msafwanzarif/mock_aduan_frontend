@@ -522,6 +522,7 @@ export default {
       this.activeStatus === status
         ? (this.activeStatus = 0)
         : (this.activeStatus = status);
+      this.currentPage = 1;
       this.getAllMyAduan();
     },
     async getMyProfile() {
