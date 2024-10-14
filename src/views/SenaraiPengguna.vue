@@ -70,7 +70,7 @@
               </tr>
               <tr>
                 <th class="w-25">Login Terakhir</th>
-                <td>{{ dateFormat(detailPegawai.last_login) }}</td>
+                <td>{{ detailPegawai.last_login === 0 ? '-' : dateFormat(detailPegawai.last_login) }}</td>
               </tr>
               <tr>
                 <th class="w-25">Aduan Diuruskan</th>
