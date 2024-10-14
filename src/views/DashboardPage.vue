@@ -27,7 +27,7 @@
           </button>
           <button
             class="btn btn-outline-danger w-100"
-            @click="$router.push({ name: 'home' })"
+            @click=logOut
           >
             Log Keluar
           </button>
@@ -475,6 +475,7 @@ export default {
     },
   },
   methods: {
+
     async cancelProfileUpdate() {
     try {
       // Fetch the latest profile data
@@ -517,6 +518,10 @@ export default {
           console.log(error);
           alert(error?.message);
         });
+    },
+    logOut() {
+      localStorage.removeItem("token");
+      this.$router.push({name: "home"});
     },
     toggleStatus(status) {
       this.activeStatus === status
