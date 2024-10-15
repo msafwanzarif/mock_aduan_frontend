@@ -2,7 +2,7 @@
   <div class="container d-flex justify-content-center align-items-center py-5">
     <div class="card w-100">
       <div class="card-body">
-        <h1><span class="c-pointer" @click="$router.back()">Home ></span> Senarai Pengguna</h1>
+        <h1><span class="c-pointer" @click="$router.push({ name: 'dashboardpage'})">Home ></span> Senarai Pengguna</h1>
         <table class="table table-hover table-striped mt-5">
           <thead>
             <tr>
