@@ -2,7 +2,7 @@
   <div class="container d-flex justify-content-center align-items-center py-5">
     <div class="card w-100">
       <div class="card-body">
-        <h1><span class="c-pointer" @click="$router.back()">Home ></span> Senarai Pengguna</h1>
+        <h1><span class="c-pointer" @click="$router.push({name: 'dashboardpage'})">Home ></span> Senarai Pengguna</h1>
         <ul class="pagination float-end">
           <li class="page-item" :class="{ disabled: currentPage === 1 }">
             <a class="page-link" href="#" aria-label="Previous" @click="changePage(currentPage - 1)">
