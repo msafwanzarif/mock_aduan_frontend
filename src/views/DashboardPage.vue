@@ -34,7 +34,7 @@
         </div>
       </div>
       <div
-        class="card w-50"
+        class="card w-50 c-pointer"
         v-if="roleId == 1"
         @click="$router.push({ name: 'senaraipengguna' })"
       >
@@ -59,7 +59,7 @@
         </div>
       </div>
       <div
-        class="card w-50"
+        class="card w-50 c-pointer"
         v-if="roleId == 1 || roleId == 2"
         @click="$router.push({ name: 'senaraipengadu' })"
       >
@@ -84,7 +84,7 @@
         </div>
       </div>
       <div
-        class="card w-50"
+        class="card w-50 c-pointer"
         v-if="roleId == 2"
         @click="$router.push({ name: 'siasatanpage' })"
       >

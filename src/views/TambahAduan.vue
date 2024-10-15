@@ -11,7 +11,7 @@
           </h1>
           <label class="form-label mt-3">Tajuk</label>
           <input type="text" class="form-control" @keyup.enter="submitAduan" v-model="tajuk" :maxlength="100"
-          @input="updateTajukLength"/>
+          @input="updateTajukLength" autofocus/>
           <p class="text-muted mt-1">
             {{ tajukLength }} characters out of 100 characters
           </p>
