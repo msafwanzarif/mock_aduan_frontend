@@ -5,8 +5,7 @@
         <div class="card-body">
           <h1 class="m-0 mb-3">Sila Login</h1>
           <label class="form-label">Username</label>
-          <input v-model="username"  @keyup.enter="login"  type="text" class="form-control">
-          <input v-model="username" type="text" class="form-control" autofocus>
+          <input v-model="username"  @keyup.enter="login"  type="text" class="form-control" autofocus>
           <label class="form-label">Password</label>
           <input v-model="password" @keyup.enter="login" type="password" class="form-control">
           <div class="mt-4 float-end">
