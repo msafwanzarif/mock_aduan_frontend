@@ -3,21 +3,6 @@
     <div class="card w-100">
       <div class="card-body">
         <h1><span class="c-pointer" @click="$router.back()">Home ></span> Senarai Pengguna</h1>
-        <ul class="pagination float-end">
-          <li class="page-item" :class="{ disabled: currentPage === 1 }">
-            <a class="page-link" href="#" aria-label="Previous" @click="changePage(currentPage - 1)">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item" v-for="page in totalPages" :key="page" :class="{ active: page === currentPage }">
-            <a class="page-link" href="#" @click="changePage(page)">{{ page }}</a>
-          </li>
-          <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-            <a class="page-link" href="#" aria-label="Next" @click="changePage(currentPage + 1)">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
         <table class="table table-hover table-striped mt-5">
           <thead>
             <tr>
@@ -25,7 +10,7 @@
               <th scope="col">Nama</th>
               <th scope="col">IC No</th>
               <th scope="col">Email</th>
-              <th scope="col">Total Aduan</th>
+              <th style="text-align: center" scope="col">Total Aduan</th>
             </tr>
           </thead>
           <tbody>
@@ -34,7 +19,7 @@
               <td>{{ item.name }}</td>
               <td>{{ item.id_no }}</td>
               <td>{{ item.email }}</td>
-              <td>{{ item.aduanCount }}</td>
+              <td style="text-align: center;">{{ item.aduanCount }}</td>
             </tr>
           </tbody>
         </table>
