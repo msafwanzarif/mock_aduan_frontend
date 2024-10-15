@@ -87,7 +87,7 @@ const router = createRouter({
       path: '/tambahaduan',
       name: 'tambahaduan',
       component: TambahAduan,
-      meta: ({ requiresAuth: true })
+      meta: ({ requiresAuth: true, restrictedRoleIds: ['1','2'] })
     },
     // {
     //   path: '/copy',
