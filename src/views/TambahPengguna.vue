@@ -10,7 +10,7 @@
             <option v-for="role in gRole" :key="role.id" :value="role.id">{{ role.name }}</option>
           </select>
           <label class="form-label mt-3">Nama</label>
-          <input type="text" class="form-control" v-model="nama">
+          <input type="text" class="form-control" v-model="nama" autofocus>
           <label class="form-label mt-3">Email</label>
           <input type="text" class="form-control" v-model="email">
           <label class="form-label mt-3">Password</label>
