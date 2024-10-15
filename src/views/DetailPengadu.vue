@@ -12,7 +12,8 @@
           </div>
         </div>
         <hr>
-        <h2>Aduan Yang Dihantar : {{ tAduan }}</h2>
+        <h2 v-if="tAduan > 0">Aduan Yang Dihantar : {{ tAduan }}</h2>
+        <h2 v-if="tAduan == 0">Tiada Aduan Yang Dihantar</h2>
         <div v-if="loading" class="text-center">
           <div class="spinner-border" role="status">
             <span class="visually-hidden">Loading...</span>
@@ -25,8 +26,8 @@
               <div class="card-body">
                 <div class="d-flex flex-column justify-content-between h-100">
                   <div>
-                    <h1 class="fs-3 fw-bold">{{ aduan.title }}</h1>
-                    <h2 class="fs-6 fst-italic">{{ aduan.content }}</h2>
+                    <h1 class="fs-3 fw-bold text-truncate">{{ aduan.title }}</h1>
+                    <h2 class="fs-6 fst-italic text-truncate">{{ aduan.content }}</h2>
                   </div>
                   <div class="w-100 mt-4">
                     <span class="badge rounded-pill" :class="getBadgeClass(aduan.status)">{{ getStatus(aduan.status) }}</span>

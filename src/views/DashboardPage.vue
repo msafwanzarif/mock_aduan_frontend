@@ -10,104 +10,54 @@
       </div>
       <div class="card w-25">
         <div class="card-body">
-          <button
-            class="btn btn-outline-dark w-100 mb-2"
-            data-bs-toggle="modal"
-            data-bs-target="#profilModal"
-            @click="getMyProfile"
-          >
+          <button class="btn btn-outline-dark w-100 mb-2" data-bs-toggle="modal" data-bs-target="#profilModal"
+            @click="getMyProfile">
             Profil Anda
           </button>
-          <button
-            class="btn btn-outline-dark w-100 mb-2"
-            data-bs-toggle="modal"
-            data-bs-target="#passwordModal"
-          >
+          <button class="btn btn-outline-dark w-100 mb-2" data-bs-toggle="modal" data-bs-target="#passwordModal">
             Tukar Password
           </button>
-          <button
-            class="btn btn-outline-danger w-100"
-            @click=logOut
-          >
+          <button class="btn btn-outline-danger w-100" @click=logOut>
             Log Keluar
           </button>
         </div>
       </div>
-      <div
-        class="card w-50 c-pointer"
-        v-if="roleId == 1"
-        @click="$router.push({ name: 'senaraipengguna' })"
-      >
+      <div class="card w-50 c-pointer" v-if="roleId == 1" @click="$router.push({ name: 'senaraipengguna' })">
         <div class="card-body text-center">
           <h1>Pegawai</h1>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20vh"
-            height="20vh"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="icon icon-tabler icons-tabler-outline icon-tabler-user"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20vh" height="20vh" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-user-shield">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M6 21v-2a4 4 0 0 1 4 -4h2" />
+            <path d="M22 16c0 4 -2.5 6 -3.5 6s-3.5 -2 -3.5 -6c1 0 2.5 -.5 3.5 -1.5c1 1 2.5 1.5 3.5 1.5z" />
             <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
           </svg>
         </div>
       </div>
-      <div
-        class="card w-50 c-pointer"
-        v-if="roleId == 1 || roleId == 2"
-        @click="$router.push({ name: 'senaraipengadu' })"
-      >
+      <div class="card w-50 c-pointer" v-if="roleId == 1 || roleId == 2"
+        @click="$router.push({ name: 'senaraipengadu' })">
         <div class="card-body text-center">
           <h1>Pengguna</h1>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20vh"
-            height="20vh"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="icon icon-tabler icons-tabler-outline icon-tabler-user"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20vh" height="20vh" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-user">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
             <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
           </svg>
         </div>
       </div>
-      <div
-        class="card w-50 c-pointer"
-        v-if="roleId == 2"
-        @click="$router.push({ name: 'siasatanpage' })"
-      >
+      <div class="card w-50 c-pointer" v-if="roleId == 2" @click="$router.push({ name: 'siasatanpage' })">
         <div class="card-body text-center">
           <h1>Aduan</h1>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20vh"
-            height="20vh"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="icon icon-tabler icons-tabler-outline icon-tabler-message"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20vh" height="20vh" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-message">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M8 9h8" />
             <path d="M8 13h6" />
-            <path
-              d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12z"
-            />
+            <path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12z" />
           </svg>
         </div>
       </div>
@@ -144,51 +94,34 @@
       </div> -->
       <div id="pelangganCard" class="card w-100" v-if="roleId == 3">
         <div class="card-body">
-          <button
-            class="btn btn-outline-dark float-end"
-            @click="$router.push({ name: 'tambahaduan' })"
-          >
+          <button class="btn btn-outline-dark float-end" @click="$router.push({ name: 'tambahaduan' })">
             Tambah
           </button>
           <h1>Aduan</h1>
-          <div
-            class="d-flex flex-wrap align-items-center justify-content-between"
-          >
-            <div
-              class="card bg-secondary w-25 c-pointer"
-              @click="toggleStatus(1)"
-              :class="{ 'opacity-25': activeStatus && activeStatus != 1 }"
-            >
+          <div class="d-flex flex-wrap align-items-center justify-content-between">
+            <div class="card bg-secondary w-25 c-pointer" @click="toggleStatus(1)"
+              :class="{ 'opacity-25': activeStatus && activeStatus != 1 }">
               <div class="card-body text-center">
                 <h2>Terima</h2>
                 <h3>{{ terima }}</h3>
               </div>
             </div>
-            <div
-              class="card bg-primary w-25 c-pointer"
-              @click="toggleStatus(2)"
-              :class="{ 'opacity-25': activeStatus && activeStatus != 2 }"
-            >
+            <div class="card bg-primary w-25 c-pointer" @click="toggleStatus(2)"
+              :class="{ 'opacity-25': activeStatus && activeStatus != 2 }">
               <div class="card-body text-center">
                 <h2>Siasat</h2>
                 <h3>{{ siasat }}</h3>
               </div>
             </div>
-            <div
-              class="card bg-success w-25 c-pointer"
-              @click="toggleStatus(3)"
-              :class="{ 'opacity-25': activeStatus && activeStatus != 3 }"
-            >
+            <div class="card bg-success w-25 c-pointer" @click="toggleStatus(3)"
+              :class="{ 'opacity-25': activeStatus && activeStatus != 3 }">
               <div class="card-body text-center">
                 <h2>Selesai</h2>
                 <h3>{{ selesai }}</h3>
               </div>
             </div>
-            <div
-              class="card bg-danger w-25 c-pointer"
-              @click="toggleStatus(4)"
-              :class="{ 'opacity-25': activeStatus && activeStatus != 4 }"
-            >
+            <div class="card bg-danger w-25 c-pointer" @click="toggleStatus(4)"
+              :class="{ 'opacity-25': activeStatus && activeStatus != 4 }">
               <div class="card-body text-center">
                 <h2>Tolak</h2>
                 <h3>{{ tolak }}</h3>
@@ -200,25 +133,17 @@
       <div id="pelangganCardAduans" class="card w-100" v-if="roleId == 3">
         <div class="card-body">
           <div class="row">
-            <div
-              class="col-12 col-md-6 mb-3"
-              v-for="aduan in aduans"
-              :key="aduan.id"
-              @click="clickOnAduan(aduan.id)"
-            >
+            <div class="col-12 col-md-6 mb-3" v-for="aduan in aduans" :key="aduan.id" @click="clickOnAduan(aduan.id)">
               <div class="card h-100">
                 <div class="card-body">
                   <div class="d-flex flex-column justify-content-between h-100">
                     <div>
-                      <h1 class="fs-3 fw-bold">{{ aduan.title }}</h1>
-                      <h2 class="fs-6 fst-italic">{{ aduan.content }}</h2>
+                      <h1 class="fs-3 fw-bold text-truncate">{{ aduan.title }}</h1>
+                      <h2 class="fs-6 fst-italic text-truncate">{{ aduan.content }}</h2>
                     </div>
                     <div class="w-100 mt-4">
-                      <span
-                        class="badge rounded-pill"
-                        :class="getBadgeClass(aduan.status)"
-                        >{{ getStatus(aduan.status) }}</span
-                      >
+                      <span class="badge rounded-pill" :class="getBadgeClass(aduan.status)">{{ getStatus(aduan.status)
+                        }}</span>
                       <div class="float-end">
                         <span class="fs-6">{{
                           dateFormat(aduan.created_at)
@@ -309,35 +234,17 @@
           </div>
           <ul class="pagination float-end">
             <li class="page-item" :class="{ disabled: currentPage === 1 }">
-              <a
-                class="page-link"
-                href="#"
-                aria-label="Previous"
-                @click="changePage(currentPage - 1)"
-              >
+              <a class="page-link" href="#" aria-label="Previous" @click="changePage(currentPage - 1)">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
-            <li
-              class="page-item"
-              v-for="page in maxPages"
-              :key="page"
-              :class="{ active: page === currentPage }"
-            >
+            <li class="page-item" v-for="page in maxPages" :key="page" :class="{ active: page === currentPage }">
               <a class="page-link" href="#" @click="changePage(page)">{{
                 page
               }}</a>
             </li>
-            <li
-              class="page-item"
-              :class="{ disabled: currentPage === maxPages }"
-            >
-              <a
-                class="page-link"
-                href="#"
-                aria-label="Next"
-                @click="changePage(currentPage + 1)"
-              >
+            <li class="page-item" :class="{ disabled: currentPage === maxPages }">
+              <a class="page-link" href="#" aria-label="Next" @click="changePage(currentPage + 1)">
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>
@@ -351,12 +258,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Profil</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <!-- Nama -->
@@ -369,20 +271,10 @@
 
           <!-- No IC (Only for Pengguna role) -->
           <label class="form-label" v-if="roleId == 3">No IC</label>
-          <input
-            v-if="roleId == 3"
-            v-model="tempIcNo"
-            class="form-control"
-            @input="validateNumericInput"
-          />
+          <input v-if="roleId == 3" v-model="tempIcNo" class="form-control" @input="validateNumericInput" />
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-            @click="getMyProfile"
-          >
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="getMyProfile">
             Batal
           </button>
           <button type="button" class="btn btn-primary" @click="saveProfil">
@@ -397,12 +289,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Tukar Password</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <label class="form-label">Password Asal</label>
@@ -410,18 +297,10 @@
           <label class="form-label">Password Baru</label>
           <input class="form-control" type="password" v-model="newPassword" />
           <label class="form-label">Confirm Password Baru</label>
-          <input
-            class="form-control"
-            type="password"
-            v-model="confirmNewPassword"
-          />
+          <input class="form-control" type="password" v-model="confirmNewPassword" />
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Batal
           </button>
           <button type="button" class="btn btn-primary" @click="changePassword">
@@ -477,23 +356,23 @@ export default {
   methods: {
 
     async cancelProfileUpdate() {
-    try {
-      // Fetch the latest profile data
-      await this.getMyProfile();
+      try {
+        // Fetch the latest profile data
+        await this.getMyProfile();
 
-      // Close the modal
-      const myModalEl = document.querySelector("#profilModal");
-      const modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
-      modal.hide();
-    } catch (error) {
-      console.error("Error fetching profile:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Failed to fetch profile data.",
-      });
-    }
-  },
+        // Close the modal
+        const myModalEl = document.querySelector("#profilModal");
+        const modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
+        modal.hide();
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Failed to fetch profile data.",
+        });
+      }
+    },
     validateNumericInput(event) {
       const value = event.target.value;
       const numericValue = value.replace(/[^0-9]/g, "");
@@ -521,7 +400,7 @@ export default {
     },
     logOut() {
       localStorage.removeItem("token");
-      this.$router.push({name: "home"});
+      this.$router.push({ name: "home" });
     },
     toggleStatus(status) {
       this.activeStatus === status
