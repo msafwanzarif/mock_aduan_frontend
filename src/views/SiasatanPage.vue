@@ -157,16 +157,16 @@ export default {
           return "Unknown";
       }
     },
-    formatDate(timestamp) {
-      const options = {
-        year: "numeric",
-        month: "short",
+    formatDate(dateTime) {
+      const date = new Date(dateTime * 1000);
+      return date.toLocaleString("en-GB", {
         day: "numeric",
+        month: "numeric",
+        year: "numeric",
         hour: "numeric",
         minute: "numeric",
-      };
-      const date = new Date(timestamp * 1000);
-      return date.toLocaleDateString("en-GB", options);
+        hour12: true,
+      });
     },
   },
 };

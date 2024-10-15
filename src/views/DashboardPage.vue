@@ -4,7 +4,7 @@
       <div class="card w-75">
         <div class="card-body">
           <h1>Selamat Datang!</h1>
-          <h2 class="fw-bold m-0">{{ tempNama }}</h2>
+          <h2 class="fw-bold m-0">{{ displayedNama }}</h2>
           <span> {{ roleLabel[roleId] }}</span>
         </div>
       </div>
@@ -260,7 +260,7 @@
           <h5 class="modal-title">Profil</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" @keydown.enter="saveProfil">
           <!-- Nama -->
           <label class="form-label">Nama</label>
           <input v-model="tempNama" class="form-control" type="text" />
@@ -271,7 +271,13 @@
 
           <!-- No IC (Only for Pengguna role) -->
           <label class="form-label" v-if="roleId == 3">No IC</label>
-          <input v-if="roleId == 3" v-model="tempIcNo" class="form-control" @input="validateNumericInput" />
+          <input
+            v-if="roleId == 3"
+            v-model="tempIcNo"
+            class="form-control"
+            @input="validateNumericInput"
+            maxlength="12"
+          />
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="getMyProfile">
@@ -291,7 +297,7 @@
           <h5 class="modal-title">Tukar Password</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" @keydown.enter="changePassword">
           <label class="form-label">Password Asal</label>
           <input class="form-control" type="password" v-model="oldPassword" />
           <label class="form-label">Password Baru</label>
@@ -327,6 +333,7 @@ export default {
       tolak: 0,
       activeStatus: 0,
       tempNama: "",
+      displayedNama: "",
       tempEmail: "",
       tempIcNo: "",
       roleLabel: ["", "Admin", "Pegawai", "Pengguna"],
@@ -339,9 +346,10 @@ export default {
     };
   },
   mounted() {
-    this.tempNama = this.nama;
-    let roleId = localStorage.getItem("roleId");
+    // this.tempNama = this.nama;
+    // let roleId = localStorage.getItem("roleId");
     this.getMyProfile();
+    let roleId = localStorage.getItem("roleId");
     if (roleId == 3) {
       this.getMyStat();
       this.getAllMyAduan();
@@ -375,7 +383,7 @@ export default {
     },
     validateNumericInput(event) {
       const value = event.target.value;
-      const numericValue = value.replace(/[^0-9]/g, "");
+      const numericValue = value.replace(/[^0-9]/g, "").slice(0,12);
       this.tempIcNo = numericValue;
     },
     getMyStat() {
@@ -421,6 +429,7 @@ export default {
           const profileData = response.data;
 
           this.tempNama = profileData.name;
+          this.displayedNama = profileData.name;
           this.tempEmail = profileData.email;
           if (this.roleId == 3) {
             this.tempIcNo = profileData.id_no;
@@ -472,6 +481,8 @@ export default {
           this.tempEmail = this.tempEmail;
           if (this.roleId == 3) this.ic_no = this.tempIcNo;
 
+          this.displayedNama = this.tempNama;
+          
           // Close the modal
           var myModalEl = document.querySelector("#profilModal");
           var modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
@@ -508,6 +519,15 @@ export default {
         return;
       }
 
+      if (this.newPassword == this.oldPassword) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "New password and old password cannot be same.",
+        });
+        return;
+      }
+
       try {
         const response = await axios.request({
           method: "put",
@@ -525,10 +545,12 @@ export default {
             title: "Success",
             text: "Password successfully updated.",
           });
-          // Clear the form fields
-          this.oldPassword = "";
-          this.newPassword = "";
-          this.confirmNewPassword = "";
+          // // Clear the form fields
+          // this.oldPassword = "";
+          // this.newPassword = "";
+          // this.confirmNewPassword = "";
+          // Logout after successful password change
+          this.logOut();
           // Close the modal
           const modal = document.querySelector("#passwordModal");
           const bootstrapModal = bootstrap.Modal.getInstance(modal);

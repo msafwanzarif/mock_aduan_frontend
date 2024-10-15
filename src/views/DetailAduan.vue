@@ -12,7 +12,13 @@
           <div class="card-body">
             <h2 class="fs-1 fw-bold">{{ aduan.title }}</h2>
             <h2 class="fs-4">{{ aduan.content }}</h2>
-            <table class="table table-hover mt-5">
+            <div v-if="loading" class="text-center">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <div class="loading-text">Please Wait</div>
+            </div>
+            <table class="table table-hover mt-5" v-if="!loading">
               <tbody>
                 <tr
                   v-if="roleId != 3"
@@ -91,6 +97,7 @@
             rows="4"
             class="form-control"
             v-model="hasilSiasatan"
+            @keydown="handleKeydown"
           ></textarea>
           <button
             class="btn btn-primary float-end mt-3"
@@ -115,55 +122,77 @@ export default {
       roleId: 2,
       status: 2,
       hasilSiasatan: "",
+      loading: true,
     };
   },
   async mounted() {
     await this.initializeData();
   },
   methods: {
-    async initializeData() {
-    const roleId = localStorage.getItem("roleId");
-    const aduanId = this.$route.params.aduanId;
-
-    if (roleId) this.roleId = parseInt(roleId);
-
-    try {
-      let response;
-      if (this.roleId === 3) {
-        response = await axios.request({
-          method: "get",
-          url: `http://localhost:3000/api/aduan/my/${aduanId}`,
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-      } else {
-        response = await axios.request({
-          method: "get",
-          url: `http://localhost:3000/api/aduan/aduanDetail-Pegawai/${aduanId}`,
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+    handleKeydown(event) {
+      if (event.key === "Enter") {
+        // Prevent the default behavior of adding a new line
+        if (!event.shiftKey) {
+          event.preventDefault();
+          // Check if the input is empty
+          if (this.hasilSiasatan.trim() === "") {
+            // Show a warning using SweetAlert
+            Swal.fire({
+              icon: "warning",
+              title: "Input Required",
+              text: "Please enter a value before submitting.",
+            });
+            return; // Block submission
+          }
+          this.updateStatus(3); // Call submitAduan if Enter is pressed without Shift
+        }
       }
-      this.aduan = response.data;
-      this.status = this.aduan.status;
-    } catch (error) {
-      console.error("Failed to fetch aduan details:", error);
-    }
-  },
-    formatDate(timestamp) {
-      const options = {
-        year: "numeric",
-        month: "short",
+    },
+    async initializeData() {
+      this.loading = true;
+      const roleId = localStorage.getItem("roleId");
+      const aduanId = this.$route.params.aduanId;
+
+      if (roleId) this.roleId = parseInt(roleId);
+
+      try {
+        let response;
+        if (this.roleId === 3) {
+          response = await axios.request({
+            method: "get",
+            url: `http://localhost:3000/api/aduan/my/${aduanId}`,
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+        } else {
+          response = await axios.request({
+            method: "get",
+            url: `http://localhost:3000/api/aduan/aduanDetail-Pegawai/${aduanId}`,
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+        }
+        this.aduan = response.data;
+        this.status = this.aduan.status;
+      } catch (error) {
+        console.error("Failed to fetch aduan details:", error);
+      } finally {
+        this.loading = false;
+      }
+    },
+    formatDate(dateTime) {
+      const date = new Date(dateTime * 1000);
+      return date.toLocaleString("en-GB", {
         day: "numeric",
+        month: "numeric",
+        year: "numeric",
         hour: "numeric",
         minute: "numeric",
-      };
-      const date = new Date(timestamp * 1000);
-      return date.toLocaleDateString("en-GB", options);
+        hour12: true,
+      });
     },
-
     async updateStatus(status) {
       const aduanId = this.$route.params.aduanId;
 
@@ -224,7 +253,7 @@ export default {
 
         this.status = status;
         await this.initializeData();
-        
+
         Swal.fire({
           icon: "success",
           title: "Success",
@@ -246,3 +275,9 @@ export default {
   },
 };
 </script>
+<style>
+.spinner-border {
+  width: 10rem;
+  height: 10rem;
+}
+</style>
