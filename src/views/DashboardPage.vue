@@ -102,8 +102,7 @@
             <div class="card bg-secondary w-25 c-pointer" :class="{
               'opacity-25':
                 (activeStatus && activeStatus != 1) || terima === 0,
-            }" :style="{ cursor: terima === 0 ? 'not-allowed' : 'pointer' }"
-              @click="terima !== 0 && toggleStatus(1)">
+            }" :style="{ cursor: terima === 0 ? 'not-allowed' : 'pointer' }" @click="terima !== 0 && toggleStatus(1)">
               <div class="card-body text-center">
                 <h2>Terima</h2>
                 <h3>{{ terima }}</h3>
@@ -112,8 +111,7 @@
             <div class="card bg-primary w-25 c-pointer" :class="{
               'opacity-25':
                 (activeStatus && activeStatus != 2) || siasat === 0,
-            }" :style="{ cursor: siasat === 0 ? 'not-allowed' : 'pointer' }"
-              @click="siasat !== 0 && toggleStatus(2)">
+            }" :style="{ cursor: siasat === 0 ? 'not-allowed' : 'pointer' }" @click="siasat !== 0 && toggleStatus(2)">
               <div class="card-body text-center">
                 <h2>Siasat</h2>
                 <h3>{{ siasat }}</h3>
@@ -143,8 +141,14 @@
       </div>
       <div id="pelangganCardAduans" class="card w-100" v-if="roleId == 3">
         <div class="card-body">
-          <div class="container d-flex justify-content-center m-5" v-if="aduans && aduans.length === 0">
-              <h3>Sila Buat aduan Pertama Anda <a href="javascript:void(0);" @click="$router.push({name: 'tambahaduan'})">Klik di Sini</a></h3>
+          <div class="text-center" v-if="loading">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          <div class="container d-flex justify-content-center m-5" v-else-if="!loading && aduans && aduans.length === 0">
+            <h3>Hantar Aduan Pertama Anda <a href="javascript:void(0);"
+                @click="$router.push({ name: 'tambahaduan' })">Klik di Sini</a></h3>
           </div>
           <div v-else>
             <div class="row">
@@ -166,7 +170,7 @@
                         <div class="float-end">
                           <span class="fs-6">{{
                             dateFormat(aduan.created_at)
-                            }}</span>
+                          }}</span>
                         </div>
                       </div>
                     </div>
@@ -266,9 +270,9 @@ export default {
       profile: null,
       roleId: 1,
       nama: "",
-      terima: 5,
-      siasat: 2,
-      selesai: 2,
+      terima: 0,
+      siasat: 0,
+      selesai: 0,
       tolak: 0,
       activeStatus: 0,
       tempNama: "",
@@ -282,6 +286,7 @@ export default {
       currentPage: 1,
       maxPages: 1,
       aduans: [],
+      loading: true
     };
   },
   mounted() {
@@ -534,7 +539,9 @@ export default {
         .catch((error) => {
           console.log(error);
           alert(error?.message);
-        });
+        }).finally(() => {
+          this.loading = false;
+        })
     },
 
     getStatus(status) {
