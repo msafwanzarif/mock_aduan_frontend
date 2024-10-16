@@ -10,7 +10,7 @@
             Tambah Aduan
           </h1>
           <label class="form-label mt-3">Tajuk</label>
-          <input type="text" class="form-control" @keyup.enter="submitAduan" v-model="tajuk" :maxlength="100"
+          <input type="text" class="form-control" @keydown="handleKeydown" v-model="tajuk" :maxlength="100"
           @input="updateTajukLength" autofocus/>
           <p class="text-muted mt-1">
             {{ tajukLength }} characters out of 100 characters
@@ -53,22 +53,33 @@ export default {
     }
   },
   methods: {
-    handleKeydown(event) {
+  handleKeydown(event) {
     if (event.key === "Enter") {
       // Prevent the default behavior of adding a new line
       if (!event.shiftKey) {
         event.preventDefault();
-         // Check if the input is empty
-         if (this.butiran.trim() === "") {
-            // Show a warning using SweetAlert
-            Swal.fire({
-              icon: "warning",
-              title: "Butiran Required",
-              text: "Please enter a value before submitting.",
-            });
-            return; // Block submission
-          }
-        this.submitAduan(); // Call submitAduan if Enter is pressed without Shift
+
+        // Check if the Tajuk input is empty
+        if (this.tajuk.trim() === "") {
+          Swal.fire({
+            icon: "warning",
+            title: "Incomplete Form",
+            text: "Please fill in all fields before submitting.",
+          });
+          return;
+        }
+
+        // Check if the Butiran input is empty
+        if (this.butiran.trim() === "") {
+          Swal.fire({
+            icon: "warning",
+            title: "Incomplete Form",
+            text: "Please fill in all fields before submitting.",
+          });
+          return; 
+        }
+
+        this.submitAduan();
       }
     }
   },
@@ -79,14 +90,14 @@ export default {
       this.butiranLength = this.butiran.length
     },
     async submitAduan() {
-      if (!this.tajuk || !this.butiran) {
-        Swal.fire({
-          icon: "warning",
-          title: "Incomplete Form",
-          text: "Please fill in all fields before submitting.",
-        });
-        return;
-      }
+      // if (!this.tajuk || !this.butiran) {
+      //   Swal.fire({
+      //     icon: "warning",
+      //     title: "Incomplete Form",
+      //     text: "Please fill in all fields before submitting.",
+      //   });
+      //   return;
+      // }
 
       if (this.tajuk.length > 100 || this.butiran.length > 1000) {
         Swal.fire({
