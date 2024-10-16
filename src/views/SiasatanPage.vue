@@ -100,6 +100,7 @@ export default {
     getStatus() {
       this.activeStatus = this.selectedFilter
       this.currentPage = 1
+      this.loading = true;
       this.fetchAduanList()
     },
     async fetchAduanList() {
