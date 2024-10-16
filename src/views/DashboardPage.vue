@@ -179,9 +179,7 @@
                 </div>
               </div>
             </div>
-          </div>
-
-          <ul class="pagination float-end">
+            <ul class="pagination float-end">
             <li class="page-item" :class="{ disabled: currentPage === 1 }">
               <a class="page-link" href="#" aria-label="Previous" @click="changePage(currentPage - 1)">
                 <span aria-hidden="true">&laquo;</span>
@@ -198,6 +196,7 @@
               </a>
             </li>
           </ul>
+          </div>  
         </div>
       </div>
     </div>
