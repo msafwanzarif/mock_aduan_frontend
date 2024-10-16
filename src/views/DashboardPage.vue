@@ -157,8 +157,7 @@
             <div
               class="card bg-secondary w-25 c-pointer"
               :class="{
-                'opacity-25':
-                  (activeStatus && activeStatus != 1) || terima === 0,
+                'opacity-25': activeStatus && activeStatus != 1,
               }"
               :style="{ cursor: terima === 0 ? 'not-allowed' : 'pointer' }"
               @click="terima !== 0 && toggleStatus(1)"
@@ -168,11 +167,11 @@
                 <h3>{{ terima }}</h3>
               </div>
             </div>
+
             <div
               class="card bg-primary w-25 c-pointer"
               :class="{
-                'opacity-25':
-                  (activeStatus && activeStatus != 2) || siasat === 0,
+                'opacity-25': activeStatus && activeStatus != 2,
               }"
               :style="{ cursor: siasat === 0 ? 'not-allowed' : 'pointer' }"
               @click="siasat !== 0 && toggleStatus(2)"
@@ -182,11 +181,11 @@
                 <h3>{{ siasat }}</h3>
               </div>
             </div>
+
             <div
               class="card bg-success w-25 c-pointer"
               :class="{
-                'opacity-25':
-                  (activeStatus && activeStatus != 3) || selesai === 0,
+                'opacity-25': activeStatus && activeStatus != 3,
               }"
               :style="{ cursor: selesai === 0 ? 'not-allowed' : 'pointer' }"
               @click="selesai !== 0 && toggleStatus(3)"
@@ -196,11 +195,11 @@
                 <h3>{{ selesai }}</h3>
               </div>
             </div>
+
             <div
               class="card bg-danger w-25 c-pointer"
               :class="{
-                'opacity-25':
-                  (activeStatus && activeStatus != 4) || tolak === 0,
+                'opacity-25': activeStatus && activeStatus != 4,
               }"
               :style="{ cursor: tolak === 0 ? 'not-allowed' : 'pointer' }"
               @click="tolak !== 0 && toggleStatus(4)"
