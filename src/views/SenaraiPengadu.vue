@@ -2,27 +2,36 @@
   <div class="container d-flex justify-content-center align-items-center py-5">
     <div class="card w-100">
       <div class="card-body">
-        <h1><span class="c-pointer" @click="$router.push({ name: 'dashboardpage'})">Home ></span> Senarai Pengguna</h1>
-        <table class="table table-hover table-striped mt-5">
-          <thead>
-            <tr>
-              <th scope="col">No.</th>
-              <th scope="col">Nama</th>
-              <th scope="col">IC No</th>
-              <th scope="col">Email</th>
-              <th style="text-align: center" scope="col">Total Aduan</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(item,index) in penggunas" :key="item.id" class="c-pointer" @click="$router.push({name:'detailpengadu',params:{id:item.id}})">
-              <th scope="row">{{ (currentPage - 1) * 4 + (index + 1) }}</th>
-              <td>{{ item.name }}</td>
-              <td>{{ item.id_no }}</td>
-              <td>{{ item.email }}</td>
-              <td style="text-align: center;">{{ item.aduanCount }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <h1><span class="c-pointer" @click="$router.push({ name: 'dashboardpage' })">Home ></span> Senarai Pengguna</h1>
+        <div class="container" v-if="!loading">
+          <table class="table table-hover table-striped mt-5">
+            <thead>
+              <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Nama</th>
+                <th scope="col">IC No</th>
+                <th scope="col">Email</th>
+                <th style="text-align: center" scope="col">Total Aduan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in penggunas" :key="item.id" class="c-pointer"
+                @click="$router.push({ name: 'detailpengadu', params: { id: item.id } })">
+                <th scope="row">{{ (currentPage - 1) * 4 + (index + 1) }}</th>
+                <td>{{ item.name }}</td>
+                <td>{{ item.id_no }}</td>
+                <td>{{ item.email }}</td>
+                <td style="text-align: center;">{{ item.aduanCount }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="container d-flex justify-content-center p-3" v-else>
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+
         <ul class="pagination float-end">
           <li class="page-item" :class="{ disabled: currentPage === 1 }">
             <a class="page-link" href="#" aria-label="Previous" @click="changePage(currentPage - 1)">
@@ -49,23 +58,26 @@ import axios from "axios"
 export default {
   data() {
     return {
-      penggunas:[],
+      penggunas: [],
       currentPage: 1,
-      totalPages:1,
-      roleId:1,
-      pageSize:4
+      totalPages: 1,
+      roleId: 1,
+      pageSize: 4,
+      loading: true
     }
   },
 
   mounted() {
     let roleId = localStorage.getItem("roleId");
-      if (roleId == 1 || roleId == 2) {
-        this.getAllPengguna()
-      } 
+    if (roleId == 1 || roleId == 2) {
+      this.getAllPengguna()
+    }
   },
 
   methods: {
     getAllPengguna() {
+      this.loading = true;
+
       axios.request({
         method: "GET",
         url: "http://localhost:3000/api/pengguna",
@@ -73,22 +85,25 @@ export default {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") }
       }).then((response) => {
         this.penggunas = response.data.result;
-        this.currentPage = response.data.currentPage
-        this.totalPages = response.data.maxPage
+        this.currentPage = response.data.currentPage;
+        this.totalPages = response.data.maxPage;
       }).catch((e) => {
         console.log(e)
         alert(e?.message)
+      }).finally(() => {
+        this.loading = false
       })
     },
 
     changePage(pageNumber) {
       if (pageNumber < 1 || pageNumber > this.totalPages) return
       this.currentPage = pageNumber
+      this.loading = true
       this.getAllPengguna()
     },
 
     clickProfile(id) {
-      this.$router.push({name:'detailpengadu', params: {id}})
+      this.$router.push({ name: 'detailpengadu', params: { id } })
     }
   }
 }

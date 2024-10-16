@@ -2,28 +2,38 @@
   <div class="container d-flex justify-content-center align-items-center py-5">
     <div class="card w-100">
       <div class="card-body">
-        <button class="btn btn-primary float-end" @click="$router.push({name:'tambahpengguna'})">Tambah</button>
+        <button class="btn btn-primary float-end" @click="$router.push({ name: 'tambahpengguna' })">Tambah</button>
         <h1><span class="c-pointer" @click="$router.push('dashboardpage')">Home ></span> Senarai Pegawai</h1>
-        <table class="table table-hover table-striped mt-5">
-          <thead>
-            <tr>
-              <th scope="col">No.</th>
-              <th scope="col">Nama</th>
-              <th scope="col">Role</th>
-              <th scope="col">Email</th>
-              <th scope="col">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="c-pointer" data-bs-toggle="modal" data-bs-target="#userModal" v-for="(pegawai, index) in pegawais" :key="pegawai.id" @click="getDetailPegawai(pegawai.id)">
-              <th scope="row">{{ (currentPage - 1) * pageSize + index + 1 }}</th>
-              <td>{{ pegawai.name }}</td>
-              <td>{{ getRoleId(pegawai.roleId) }}</td>
-              <td>{{ pegawai.email }}</td>
-              <td><span class="badge rounded-pill" :class="getBadgeStatus(pegawai.status)">{{ getStatus(pegawai.status) }}</span></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="conatiner" v-if="!loading">
+          <table class="table table-hover table-striped mt-5">
+            <thead>
+              <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Role</th>
+                <th scope="col">Email</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="c-pointer" data-bs-toggle="modal" data-bs-target="#userModal"
+                v-for="(pegawai, index) in pegawais" :key="pegawai.id" @click="getDetailPegawai(pegawai.id)">
+                <th scope="row">{{ (currentPage - 1) * pageSize + index + 1 }}</th>
+                <td>{{ pegawai.name }}</td>
+                <td>{{ getRoleId(pegawai.roleId) }}</td>
+                <td>{{ pegawai.email }}</td>
+                <td><span class="badge rounded-pill" :class="getBadgeStatus(pegawai.status)">{{
+                  getStatus(pegawai.status) }}</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="container d-flex justify-content-center p-5" v-else>
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+
         <ul class="pagination float-end">
           <li class="page-item" :class="{ disabled: currentPage === 1 }">
             <a class="page-link" href="#" aria-label="Previous" @click="changePage(currentPage - 1)">
@@ -42,7 +52,7 @@
       </div>
     </div>
   </div>
-  <div class="modal fade" id="userModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" >
+  <div class="modal fade" id="userModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
@@ -66,7 +76,8 @@
               </tr>
               <tr>
                 <th class="w-25">Status</th>
-                <td><span class="badge rounded-pill" :class="getBadgeStatus(detailPegawai.status)">{{ getStatus(detailPegawai.status) }}</span></td>
+                <td><span class="badge rounded-pill" :class="getBadgeStatus(detailPegawai.status)">{{
+                  getStatus(detailPegawai.status) }}</span></td>
               </tr>
               <tr>
                 <th class="w-25">Login Terakhir</th>
@@ -76,16 +87,19 @@
                 <th class="w-25">Aduan Diuruskan</th>
                 <!-- <td>{{ detailPegawai._count.aduan }}</td>  -->
                 <!-- <td v-if="detailPegawai">{{ detailPegawai._count.aduan || 0 }}</td> -->
-                 <td>{{ detailPegawai.aduanCount }}</td>
+                <td>{{ detailPegawai.aduanCount }}</td>
                 <!-- hold dulu -->
               </tr>
             </tbody>
-        </table>
+          </table>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" v-if="(detailPegawai.status !== 3)" @click="gantungPegawai(detailPegawai.id)">Gantung</button>
-          <button type="button" class="btn btn-success" v-if="(detailPegawai.status !== 1)" @click="aktifPegawai(detailPegawai.id)">Aktif</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="getAllPegawai()">Tutup</button>
+          <button type="button" class="btn btn-danger" v-if="(detailPegawai.status !== 3)"
+            @click="gantungPegawai(detailPegawai.id)">Gantung</button>
+          <button type="button" class="btn btn-success" v-if="(detailPegawai.status !== 1)"
+            @click="aktifPegawai(detailPegawai.id)">Aktif</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+            @click="getAllPegawai()">Tutup</button>
         </div>
       </div>
     </div>
@@ -105,6 +119,7 @@ export default {
       pageSize: 4,
       pegawais: [],
       detailPegawai: [],
+      loading: true,
     }
   },
   mounted() {
@@ -130,6 +145,8 @@ export default {
       }).catch((e) => {
         console.log(e)
         alert(e?.message)
+      }).finally(() => {
+        this.loading = false
       })
     },
 
@@ -145,7 +162,7 @@ export default {
       }).catch((e) => {
         console.log(e)
         alert(e?.message)
-      }) 
+      })
     },
 
     gantungPegawai(id) {
@@ -191,6 +208,7 @@ export default {
     changePage(pageNumber) {
       if (pageNumber < 1 || pageNumber > this.maxPages) return
       this.currentPage = pageNumber
+      this.loading = true
       this.getAllPegawai()
     },
 
