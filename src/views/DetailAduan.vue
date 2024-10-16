@@ -8,7 +8,12 @@
           </button>
           Detail Aduan
         </h1>
-        <div class="card w-100 mt-3" v-if="aduan">
+        <div class="text-center" v-if="loading">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        <div class="card w-100 mt-3" v-else-if="!loading && aduan">
           <div class="card-body">
             <h2 class="fs-1 fw-bold">{{ aduan.title }}</h2>
             <h2 class="fs-4">{{ aduan.content }}</h2>
@@ -20,11 +25,7 @@
             </div>
             <table class="table table-hover mt-5" v-if="!loading">
               <tbody>
-                <tr
-                  v-if="roleId != 3"
-                  class="c-pointer"
-                  @click="clickOnPengadu(aduan.authorId)"
-                >
+                <tr v-if="roleId != 3" class="c-pointer" @click="clickOnPengadu(aduan.authorId)">
                   <th class="w-25">Dihantar Oleh</th>
                   <td>
                     <span>{{ aduan.authorName }}</span>
@@ -40,17 +41,13 @@
                     <span class="badge rounded-pill bg-secondary">Terima</span>
                   </td>
                   <td v-if="status == 2">
-                    <span class="badge rounded-pill bg-primary"
-                      >Dalam Siasatan</span
-                    >
+                    <span class="badge rounded-pill bg-primary">Dalam Siasatan</span>
                   </td>
                   <td v-if="status == 3">
                     <span class="badge rounded-pill bg-success">Selesai</span>
                   </td>
                   <td v-if="status == 4">
-                    <span class="badge rounded-pill bg-danger"
-                      >Batal / Tolak</span
-                    >
+                    <span class="badge rounded-pill bg-danger">Batal / Tolak</span>
                   </td>
                 </tr>
                 <tr v-if="status == 3">
@@ -67,43 +64,21 @@
         </div>
         <div v-else>Loading...</div>
         <hr />
-        <button
-          v-if="roleId == 3 && status < 3"
-          class="btn btn-danger float-end"
-          @click="updateStatus(4)"
-        >
+        <button v-if="roleId == 3 && status < 3" class="btn btn-danger float-end" @click="updateStatus(4)">
           Batal Aduan
         </button>
-        <button
-          v-if="roleId == 2 && status < 2"
-          class="btn btn-danger float-end"
-          @click="updateStatus(4)"
-        >
+        <button v-if="roleId == 2 && status < 2" class="btn btn-danger float-end" @click="updateStatus(4)">
           Tolak Aduan
         </button>
-        <button
-          v-if="roleId == 2 && status < 2"
-          class="btn btn-primary float-end me-3"
-          @click="updateStatus(2)"
-        >
+        <button v-if="roleId == 2 && status < 2" class="btn btn-primary float-end me-3" @click="updateStatus(2)">
           Terima Aduan
         </button>
         <template v-if="roleId == 2 && status == 2">
           <h2>Hasil Siasatan</h2>
           <label for="hasilSiasatan" class="form-label"></label>
-          <textarea
-            id="hasilSiasatan"
-            cols="30"
-            rows="4"
-            class="form-control"
-            v-model="hasilSiasatan"
-            @keydown="handleKeydown"
-            autofocus
-          ></textarea>
-          <button
-            class="btn btn-primary float-end mt-3"
-            @click="updateStatus(3)"
-          >
+          <textarea id="hasilSiasatan" cols="30" rows="4" class="form-control" v-model="hasilSiasatan"
+            @keydown="handleKeydown" autofocus></textarea>
+          <button class="btn btn-primary float-end mt-3" @click="updateStatus(3)">
             Selesaikan
           </button>
         </template>
