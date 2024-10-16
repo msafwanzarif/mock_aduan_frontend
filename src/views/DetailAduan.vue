@@ -98,6 +98,7 @@
             class="form-control"
             v-model="hasilSiasatan"
             @keydown="handleKeydown"
+            autofocus
           ></textarea>
           <button
             class="btn btn-primary float-end mt-3"

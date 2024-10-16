@@ -25,7 +25,7 @@
 
           </div>
         </div>
-        <div class="row">
+        <div class="row" v-if="!loading">
           <!-- Loop through aduanList -->
           <div v-for="aduan in aduanList" :key="aduan.id" class="col-12 col-md-6 mb-3 c-pointer" @click="
             $router.push({ name: 'detailaduan', params: { aduanId: aduan.id } })
@@ -49,6 +49,11 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="container d-flex justify-content-center p-3" v-else>
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
           </div>
         </div>
         <!-- Pagination -->
@@ -84,7 +89,8 @@ export default {
       currentPage: 1,
       totalPages: 1,
       pageSize: 4,
-      selectedFilter: 0
+      selectedFilter: 0,
+      loading: true,
     };
   },
   mounted() {
@@ -92,7 +98,7 @@ export default {
   },
   methods: {
     getStatus() {
-      this.activeStatus  = this.selectedFilter
+      this.activeStatus = this.selectedFilter
       this.currentPage = 1
       this.fetchAduanList()
     },
@@ -114,6 +120,7 @@ export default {
         // Handle response
         this.aduanList = response.data.aduanList;
         this.totalPages = response.data.totalPages;
+        this.loading = false;
       } catch (error) {
         console.error("Failed to fetch aduan list", error);
         // if (error.response && error.response.status === 401) {
@@ -126,6 +133,7 @@ export default {
     changePage(page) {
       if (page >= 1 && page <= this.totalPages) {
         this.currentPage = page;
+        this.loading = true;
         this.fetchAduanList();
       }
     },

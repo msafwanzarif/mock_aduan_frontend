@@ -10,19 +10,11 @@
       </div>
       <div class="card w-25">
         <div class="card-body">
-          <button
-            class="btn btn-outline-dark w-100 mb-2"
-            data-bs-toggle="modal"
-            data-bs-target="#profilModal"
-            @click="getMyProfile"
-          >
+          <button class="btn btn-outline-dark w-100 mb-2" data-bs-toggle="modal" data-bs-target="#profilModal"
+            @click="getMyProfile">
             Profil Anda
           </button>
-          <button
-            class="btn btn-outline-dark w-100 mb-2"
-            data-bs-toggle="modal"
-            data-bs-target="#passwordModal"
-          >
+          <button class="btn btn-outline-dark w-100 mb-2" data-bs-toggle="modal" data-bs-target="#passwordModal">
             Tukar Password
           </button>
           <button class="btn btn-outline-danger w-100" @click="logOut">
@@ -30,84 +22,42 @@
           </button>
         </div>
       </div>
-      <div
-        class="card w-50 c-pointer"
-        v-if="roleId == 1"
-        @click="$router.push({ name: 'senaraipengguna' })"
-      >
+      <div class="card w-50 c-pointer" v-if="roleId == 1" @click="$router.push({ name: 'senaraipengguna' })">
         <div class="card-body text-center">
           <h1>Pegawai</h1>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20vh"
-            height="20vh"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="icon icon-tabler icons-tabler-outline icon-tabler-user-shield"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20vh" height="20vh" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-user-shield">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M6 21v-2a4 4 0 0 1 4 -4h2" />
-            <path
-              d="M22 16c0 4 -2.5 6 -3.5 6s-3.5 -2 -3.5 -6c1 0 2.5 -.5 3.5 -1.5c1 1 2.5 1.5 3.5 1.5z"
-            />
+            <path d="M22 16c0 4 -2.5 6 -3.5 6s-3.5 -2 -3.5 -6c1 0 2.5 -.5 3.5 -1.5c1 1 2.5 1.5 3.5 1.5z" />
             <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
           </svg>
         </div>
       </div>
-      <div
-        class="card w-50 c-pointer"
-        v-if="roleId == 1 || roleId == 2"
-        @click="$router.push({ name: 'senaraipengadu' })"
-      >
+      <div class="card w-50 c-pointer" v-if="roleId == 1 || roleId == 2"
+        @click="$router.push({ name: 'senaraipengadu' })">
         <div class="card-body text-center">
           <h1>Pengguna</h1>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20vh"
-            height="20vh"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="icon icon-tabler icons-tabler-outline icon-tabler-user"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20vh" height="20vh" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-user">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
             <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
           </svg>
         </div>
       </div>
-      <div
-        class="card w-50 c-pointer"
-        v-if="roleId == 2"
-        @click="$router.push({ name: 'siasatanpage' })"
-      >
+      <div class="card w-50 c-pointer" v-if="roleId == 2" @click="$router.push({ name: 'siasatanpage' })">
         <div class="card-body text-center">
           <h1>Aduan</h1>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20vh"
-            height="20vh"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="icon icon-tabler icons-tabler-outline icon-tabler-message"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20vh" height="20vh" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-message">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M8 9h8" />
             <path d="M8 13h6" />
-            <path
-              d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12z"
-            />
+            <path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12z" />
           </svg>
         </div>
       </div>
@@ -144,67 +94,45 @@
       </div> -->
       <div id="pelangganCard" class="card w-100" v-if="roleId == 3">
         <div class="card-body">
-          <button
-            class="btn btn-outline-dark float-end"
-            @click="$router.push({ name: 'tambahaduan' })"
-          >
+          <button class="btn btn-outline-dark float-end" @click="$router.push({ name: 'tambahaduan' })">
             Tambah
           </button>
           <h1>Aduan</h1>
-          <div
-            class="d-flex flex-wrap align-items-center justify-content-between"
-          >
-            <div
-              class="card bg-secondary w-25 c-pointer"
-              :class="{
-                'opacity-25':
-                  (activeStatus && activeStatus != 1) || terima === 0,
-              }"
-              :style="{ cursor: terima === 0 ? 'not-allowed' : 'pointer' }"
-              @click="terima !== 0 && toggleStatus(1)"
-            >
+          <div class="d-flex flex-wrap align-items-center justify-content-between">
+            <div class="card bg-secondary w-25 c-pointer" :class="{
+              'opacity-25':
+                (activeStatus && activeStatus != 1) || terima === 0,
+            }" :style="{ cursor: terima === 0 ? 'not-allowed' : 'pointer' }"
+              @click="terima !== 0 && toggleStatus(1)">
               <div class="card-body text-center">
                 <h2>Terima</h2>
                 <h3>{{ terima }}</h3>
               </div>
             </div>
-            <div
-              class="card bg-primary w-25 c-pointer"
-              :class="{
-                'opacity-25':
-                  (activeStatus && activeStatus != 2) || siasat === 0,
-              }"
-              :style="{ cursor: siasat === 0 ? 'not-allowed' : 'pointer' }"
-              @click="siasat !== 0 && toggleStatus(2)"
-            >
+            <div class="card bg-primary w-25 c-pointer" :class="{
+              'opacity-25':
+                (activeStatus && activeStatus != 2) || siasat === 0,
+            }" :style="{ cursor: siasat === 0 ? 'not-allowed' : 'pointer' }"
+              @click="siasat !== 0 && toggleStatus(2)">
               <div class="card-body text-center">
                 <h2>Siasat</h2>
                 <h3>{{ siasat }}</h3>
               </div>
             </div>
-            <div
-              class="card bg-success w-25 c-pointer"
-              :class="{
-                'opacity-25':
-                  (activeStatus && activeStatus != 3) || selesai === 0,
-              }"
-              :style="{ cursor: selesai === 0 ? 'not-allowed' : 'pointer' }"
-              @click="selesai !== 0 && toggleStatus(3)"
-            >
+            <div class="card bg-success w-25 c-pointer" :class="{
+              'opacity-25':
+                (activeStatus && activeStatus != 3) || selesai === 0,
+            }" :style="{ cursor: selesai === 0 ? 'not-allowed' : 'pointer' }"
+              @click="selesai !== 0 && toggleStatus(3)">
               <div class="card-body text-center">
                 <h2>Selesai</h2>
                 <h3>{{ selesai }}</h3>
               </div>
             </div>
-            <div
-              class="card bg-danger w-25 c-pointer"
-              :class="{
-                'opacity-25':
-                  (activeStatus && activeStatus != 4) || tolak === 0,
-              }"
-              :style="{ cursor: tolak === 0 ? 'not-allowed' : 'pointer' }"
-              @click="tolak !== 0 && toggleStatus(4)"
-            >
+            <div class="card bg-danger w-25 c-pointer" :class="{
+              'opacity-25':
+                (activeStatus && activeStatus != 4) || tolak === 0,
+            }" :style="{ cursor: tolak === 0 ? 'not-allowed' : 'pointer' }" @click="tolak !== 0 && toggleStatus(4)">
               <div class="card-body text-center">
                 <h2>Tolak</h2>
                 <h3>{{ tolak }}</h3>
@@ -215,149 +143,52 @@
       </div>
       <div id="pelangganCardAduans" class="card w-100" v-if="roleId == 3">
         <div class="card-body">
-          <div class="row">
-            <div
-              class="col-12 col-md-6 mb-3"
-              v-for="aduan in aduans"
-              :key="aduan.id"
-              @click="clickOnAduan(aduan.id)"
-            >
-              <div class="card h-100">
-                <div class="card-body">
-                  <div class="d-flex flex-column justify-content-between h-100">
-                    <div>
-                      <h1 class="fs-3 fw-bold text-truncate">
-                        {{ aduan.title }}
-                      </h1>
-                      <h2 class="fs-6 fst-italic text-truncate">
-                        {{ aduan.content }}
-                      </h2>
-                    </div>
-                    <div class="w-100 mt-4">
-                      <span
-                        class="badge rounded-pill"
-                        :class="getBadgeClass(aduan.status)"
-                        >{{ getStatus(aduan.status) }}</span
-                      >
-                      <div class="float-end">
-                        <span class="fs-6">{{
-                          dateFormat(aduan.created_at)
-                        }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- <div class="col-12 col-md-6 mb-3" v-if="!activeStatus || activeStatus == 1">
-              <div class="card h-100">
-                <div class="card-body">
-                  <div class="d-flex flex-column justify-content-between h-100">
-                    <div>
-                      <h1 class="fs-3 fw-bold">Aduan Paling Latest</h1>
-                      <h2 class="fs-6 fst-italic">
-                        Hmm takda apa sangat nak cakap actually
-                      </h2>
-                    </div>
-                    <div class="w-100 mt-4">
-                      <span class="badge rounded-pill bg-secondary">Terima</span>
-                      <div class="float-end">
-                        <span class="fs-6">21/6/2024 9:00AM</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md-6 mb-3 c-pointer" @click="clickOnAduan" v-if="!activeStatus || activeStatus == 2">
-              <div class="card h-100">
-                <div class="card-body">
-                  <div class="d-flex flex-column justify-content-between h-100">
-                    <div>
-                      <h1 class="fs-3 fw-bold">Aduan Mengenai Longkang</h1>
-                      <h2 class="fs-6 fst-italic">
-                        Longkang di kawasan rumah saya selalu sahaja tersumbat
-                        takleh tahan la
-                      </h2>
-                    </div>
-                    <div class="w-100 mt-4">
-                      <span class="badge rounded-pill bg-primary">Dalam Siasatan</span>
-                      <div class="float-end">
-                        <span class="fs-6">12/6/2024 12:09PM</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md-6 mb-3" v-if="!activeStatus || activeStatus == 3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <div class="d-flex flex-column justify-content-between h-100">
-                    <div>
-                      <h1 class="fs-3 fw-bold">Aduan Saya</h1>
-                      <h2 class="fs-6 fst-italic">Jiran saya selalu bising</h2>
-                    </div>
-                    <div class="w-100 mt-4">
-                      <span class="badge rounded-pill bg-success">Selesai</span>
-                      <div class="float-end">
-                        <span class="fs-6">10/5/2024 02:09AM</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md-6 mb-3" v-if="!activeStatus || activeStatus == 3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <div class="d-flex flex-column justify-content-between h-100">
-                    <div>
-                      <h1 class="fs-3 fw-bold">Aduan Saya</h1>
-                      <h2 class="fs-6 fst-italic">Jiran saya selalu bising</h2>
-                    </div>
-                    <div class="w-100 mt-4">
-                      <span class="badge rounded-pill bg-success">Selesai</span>
-                      <div class="float-end">
-                        <span class="fs-6">10/5/2024 02:09AM</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> -->
+          <div class="container d-flex justify-content-center m-5" v-if="aduans && aduans.length === 0">
+              <h3>Sila Buat aduan Pertama Anda <a href="javascript:void(0);" @click="$router.push({name: 'tambahaduan'})">Klik di Sini</a></h3>
           </div>
+          <div v-else>
+            <div class="row">
+              <div class="col-12 col-md-6 mb-3" v-for="aduan in aduans" :key="aduan.id" @click="clickOnAduan(aduan.id)">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <div class="d-flex flex-column justify-content-between h-100">
+                      <div>
+                        <h1 class="fs-3 fw-bold text-truncate">
+                          {{ aduan.title }}
+                        </h1>
+                        <h2 class="fs-6 fst-italic text-truncate">
+                          {{ aduan.content }}
+                        </h2>
+                      </div>
+                      <div class="w-100 mt-4">
+                        <span class="badge rounded-pill" :class="getBadgeClass(aduan.status)">{{ getStatus(aduan.status)
+                          }}</span>
+                        <div class="float-end">
+                          <span class="fs-6">{{
+                            dateFormat(aduan.created_at)
+                            }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <ul class="pagination float-end">
             <li class="page-item" :class="{ disabled: currentPage === 1 }">
-              <a
-                class="page-link"
-                href="#"
-                aria-label="Previous"
-                @click="changePage(currentPage - 1)"
-              >
+              <a class="page-link" href="#" aria-label="Previous" @click="changePage(currentPage - 1)">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
-            <li
-              class="page-item"
-              v-for="page in maxPages"
-              :key="page"
-              :class="{ active: page === currentPage }"
-            >
+            <li class="page-item" v-for="page in maxPages" :key="page" :class="{ active: page === currentPage }">
               <a class="page-link" href="#" @click="changePage(page)">{{
                 page
               }}</a>
             </li>
-            <li
-              class="page-item"
-              :class="{ disabled: currentPage === maxPages }"
-            >
-              <a
-                class="page-link"
-                href="#"
-                aria-label="Next"
-                @click="changePage(currentPage + 1)"
-              >
+            <li class="page-item" :class="{ disabled: currentPage === maxPages }">
+              <a class="page-link" href="#" aria-label="Next" @click="changePage(currentPage + 1)">
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>
@@ -371,17 +202,12 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Profil</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" @keydown.enter="saveProfil">
           <!-- Nama -->
           <label class="form-label">Nama</label>
-          <input v-model="tempNama" class="form-control" type="text" />
+          <input v-model="tempNama" class="form-control" type="text" autofocus />
 
           <!-- Email -->
           <label class="form-label">Email</label>
@@ -389,21 +215,11 @@
 
           <!-- No IC (Only for Pengguna role) -->
           <label class="form-label" v-if="roleId == 3">No IC</label>
-          <input
-            v-if="roleId == 3"
-            v-model="tempIcNo"
-            class="form-control"
-            @input="validateNumericInput"
-            maxlength="12"
-          />
+          <input v-if="roleId == 3" v-model="tempIcNo" class="form-control" @input="validateNumericInput"
+            maxlength="12" />
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-            @click="getMyProfile"
-          >
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="getMyProfile">
             Batal
           </button>
           <button type="button" class="btn btn-primary" @click="saveProfil">
@@ -418,12 +234,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Tukar Password</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" @keydown.enter="changePassword">
           <label class="form-label">Password Asal</label>
@@ -431,18 +242,10 @@
           <label class="form-label">Password Baru</label>
           <input class="form-control" type="password" v-model="newPassword" />
           <label class="form-label">Confirm Password Baru</label>
-          <input
-            class="form-control"
-            type="password"
-            v-model="confirmNewPassword"
-          />
+          <input class="form-control" type="password" v-model="confirmNewPassword" />
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Batal
           </button>
           <button type="button" class="btn btn-primary" @click="changePassword">
