@@ -41,7 +41,7 @@ export default {
       if (this.password != this.confirm_password) return alert("Password tidak sama")
       axios.request({
         method: 'post',
-        url: 'http://localhost:3000/api/pengguna/daftar',
+        url: 'https://api-aduan.safwanzarif.dev//api/pengguna/daftar',
         data: {
           "nama": this.nama,
           "icno": this.icno,

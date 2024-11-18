@@ -107,7 +107,7 @@ export default {
       try {
         const response = await axios.request({
           method: "get",
-          url: "http://localhost:3000/api/aduan/aduanList-Pegawai",
+          url: "https://api-aduan.safwanzarif.dev//api/aduan/aduanList-Pegawai",
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },

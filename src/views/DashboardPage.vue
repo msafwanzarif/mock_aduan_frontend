@@ -333,7 +333,7 @@ export default {
       axios
         .request({
           method: "get",
-          url: "http://localhost:3000/api/aduan/stat",
+          url: "https://api-aduan.safwanzarif.dev//api/aduan/stat",
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         })
         .then((response) => {
@@ -364,7 +364,7 @@ export default {
       try {
         const response = await axios.request({
           method: "GET",
-          url: "http://localhost:3000/api/pengguna/profil",
+          url: "https://api-aduan.safwanzarif.dev//api/pengguna/profil",
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         });
 
@@ -408,7 +408,7 @@ export default {
         // Send the update request
         const response = await axios.request({
           method: "put",
-          url: "http://localhost:3000/api/profil/update",
+          url: "https://api-aduan.safwanzarif.dev//api/profil/update",
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
           data: payload,
         });
@@ -474,7 +474,7 @@ export default {
       try {
         const response = await axios.request({
           method: "put",
-          url: "http://localhost:3000/api/profil/password",
+          url: "https://api-aduan.safwanzarif.dev//api/profil/password",
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
           data: {
             oldPassword: this.oldPassword,
@@ -521,7 +521,7 @@ export default {
       axios
         .request({
           method: "GET",
-          url: "http://localhost:3000/api/aduan/my",
+          url: "https://api-aduan.safwanzarif.dev//api/aduan/my",
           params: {
             page: this.currentPage,
             pageSize: 4,

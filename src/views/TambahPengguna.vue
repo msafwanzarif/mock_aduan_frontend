@@ -60,7 +60,7 @@ export default {
       } else {
         await axios.request({
           method: 'POST',
-          url: 'http://localhost:3000/api/pegawai',
+          url: 'https://api-aduan.safwanzarif.dev//api/pegawai',
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
           data: {
             name: this.nama,
@@ -97,7 +97,7 @@ export default {
     getRole() {
       axios.request({
         method: "GET",
-        url: 'http://localhost:3000/api/pegawai/select/role',
+        url: 'https://api-aduan.safwanzarif.dev//api/pegawai/select/role',
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       }).then((res) => {
         if (res.status == 200) {

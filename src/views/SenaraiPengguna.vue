@@ -133,7 +133,7 @@ export default {
     getAllPegawai() {
       axios.request({
         methods: "GET",
-        url: "http://localhost:3000/api/pegawai/list",
+        url: "https://api-aduan.safwanzarif.dev//api/pegawai/list",
         params: { page: this.currentPage, pageSize: this.pageSize },
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       }).then((response) => {
@@ -153,7 +153,7 @@ export default {
     async getDetailPegawai(id) {
       axios.request({
         method: "GET",
-        url: `http://localhost:3000/api/pegawai/detail/${id}`,
+        url: `https://api-aduan.safwanzarif.dev//api/pegawai/detail/${id}`,
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       }).then((response) => {
         if (response.status == 200) {
@@ -168,7 +168,7 @@ export default {
     gantungPegawai(id) {
       axios.request({
         method: "PUT",
-        url: `http://localhost:3000/api/pegawai/gantung/${id}`,
+        url: `https://api-aduan.safwanzarif.dev//api/pegawai/gantung/${id}`,
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       }).then((res) => {
         if (res.status == 200) {
@@ -188,7 +188,7 @@ export default {
     aktifPegawai(id) {
       axios.request({
         method: "PUT",
-        url: `http://localhost:3000/api/pegawai/aktif/${id}`,
+        url: `https://api-aduan.safwanzarif.dev//api/pegawai/aktif/${id}`,
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       }).then((res) => {
         if (res.status == 200) {

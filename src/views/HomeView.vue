@@ -38,7 +38,7 @@ export default {
       const that = this
       axios({
         method: 'post',
-        url: 'http://localhost:3000/auth/login',
+        url: 'https://api-aduan.safwanzarif.dev//auth/login',
         data: {
           username: this.username,
           password: this.password

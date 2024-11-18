@@ -111,7 +111,7 @@ export default {
       try {
         const response = await axios.request({
           method: "post",
-          url: "http://localhost:3000/api/aduan",
+          url: "https://api-aduan.safwanzarif.dev//api/aduan",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

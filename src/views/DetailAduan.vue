@@ -136,7 +136,7 @@ export default {
         if (this.roleId === 3) {
           response = await axios.request({
             method: "get",
-            url: `http://localhost:3000/api/aduan/my/${aduanId}`,
+            url: `https://api-aduan.safwanzarif.dev//api/aduan/my/${aduanId}`,
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -144,7 +144,7 @@ export default {
         } else {
           response = await axios.request({
             method: "get",
-            url: `http://localhost:3000/api/aduan/aduanDetail-Pegawai/${aduanId}`,
+            url: `https://api-aduan.safwanzarif.dev//api/aduan/aduanDetail-Pegawai/${aduanId}`,
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -179,7 +179,7 @@ export default {
           // Call the batalAduan API for pengadu role
           response = await axios.request({
             method: "put",
-            url: `http://localhost:3000/api/aduan/cancel/${aduanId}`,
+            url: `https://api-aduan.safwanzarif.dev//api/aduan/cancel/${aduanId}`,
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -189,7 +189,7 @@ export default {
           if (status === 4) {
             response = await axios.request({
               method: "put",
-              url: `http://localhost:3000/api/aduan/pegawai/tolak/${aduanId}`,
+              url: `https://api-aduan.safwanzarif.dev//api/aduan/pegawai/tolak/${aduanId}`,
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
               },
@@ -197,7 +197,7 @@ export default {
           } else if (status === 2) {
             response = await axios.request({
               method: "put",
-              url: `http://localhost:3000/api/aduan/pegawai/terima/${aduanId}`,
+              url: `https://api-aduan.safwanzarif.dev//api/aduan/pegawai/terima/${aduanId}`,
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
               },
@@ -214,7 +214,7 @@ export default {
 
             response = await axios.request({
               method: "put",
-              url: `http://localhost:3000/api/aduan/pegawai/selesai/${aduanId}`,
+              url: `https://api-aduan.safwanzarif.dev//api/aduan/pegawai/selesai/${aduanId}`,
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
               },
