@@ -21,6 +21,7 @@
 
 <script>
 import axios from "axios"
+import Swal from "sweetalert2";
 
 export default {
   data(){
@@ -56,10 +57,19 @@ export default {
       .catch(function (error) {
        // Display backend error message
        if (error.response && error.response.data && error.response.data.message) {
-          alert(`${error.response.data.message}`);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Log Masuk tidak berjaya. Username atau Password tidak tepat",
+          });
+          // alert(`${error.response.data.message}`);
         } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Log Masuk tidak berjaya. Username atau Password tidak tepat",
+          });
           // General fallback error
-          alert("Failed to login. Please try again.");
         }
       })
 
