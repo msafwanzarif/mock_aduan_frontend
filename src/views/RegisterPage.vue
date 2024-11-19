@@ -16,8 +16,10 @@
           <input id="confirmPassInput" v-model="confirm_password" type="password" class="form-control">
           <label class="form-label mt-3">Negeri</label>
           <select name="selectNegeri" id="negeriSelect" class="form-select">
-           <option value="SGR">Selangor</option>
+           <option value="" selected> -- Silih Pilih --</option>
+            <option value="SGR">Selangor</option>
            <option value="PNG">Penang</option>
+           <option value="PRK">Perak</option>
           </select>
           <div class="d-flex align-items-center justify-content-end mt-3">
             <div class="form-check me-3">
